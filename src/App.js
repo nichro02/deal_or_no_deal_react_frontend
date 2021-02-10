@@ -1,8 +1,17 @@
+import { Switch, Route } from 'react-router-dom'
+import Navbar from './components/common/Navbar'
+
+import { ChakraProvider } from '@chakra-ui/react'
+
 import logo from './logo.svg';
 import './css/App.css';
 
 function App() {
   return (
+    <ChakraProvider>
+      <Navbar />
+      Hello world
+      {/* 
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -18,7 +27,11 @@ function App() {
           Learn React
         </a>
       </header>
+      
+      
     </div>
+    */}
+    </ChakraProvider>
   );
 }
 
