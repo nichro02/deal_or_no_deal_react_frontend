@@ -11,8 +11,11 @@ function App() {
   return (
     <ChakraProvider>
       <Navbar />
+      <Switch>
+        <Route exact path= '/game' component={Game} />
+      </Switch>
       Hello world
-      <Game />
+      
       {/* 
     <div className="App">
       <header className="App-header">

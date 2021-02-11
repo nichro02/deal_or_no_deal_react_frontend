@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import Briefcase from './Briefcase'
+import BonusBriefcase from './BonusBriefcase'
 
 const Game = () => {
     //set state for board
@@ -39,16 +40,32 @@ const Game = () => {
         for(let i = 0; i < prizeValues.length; i++) {
             let newCase = <Briefcase 
                 value = {prizeValues[i]}
+                id = {i}
             />
             briefcaseArray.push(newCase)
         }
+        return briefcaseArray
     }
-    createBriefcases()
+
+    const createBonusCase = () => {
+        createBriefcases()
+        shufflePrizes(bonusOutcomes)
+        for(let i = 0; i < 1; i++) {
+            let bonusCase = <BonusBriefcase 
+                value = {bonusOutcomes[i]}
+                id = {'bonus'}
+            />
+            briefcaseArray.push(bonusCase)
+        }
+        return briefcaseArray
+    }
+    
     
 
     return(
+        
         <div>
-            {briefcaseArray}
+            {createBonusCase()} 
         </div>
     )
 }

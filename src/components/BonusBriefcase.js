@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 
 
 
-const Briefcase = (props) => {
+const BonusBriefcase = (props) => {
 
     const[opened, setOpened] = useState(false)
 
     return(
         <div key={props.id} id={props.id}>
             <div>
-                <img src={'/gameBriefcase.png'}/>
+                <img src={'/bonusBriefcase.png'}/>
             </div>
             <div>
                 <p>{props.value}</p>
@@ -18,4 +18,4 @@ const Briefcase = (props) => {
     )
 }
 
-export default Briefcase
+export default BonusBriefcase
