@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom'
 import Navbar from './components/common/Navbar'
+import Game from './components/Game'
 
 import { ChakraProvider } from '@chakra-ui/react'
 
@@ -11,6 +12,7 @@ function App() {
     <ChakraProvider>
       <Navbar />
       Hello world
+      <Game />
       {/* 
     <div className="App">
       <header className="App-header">
