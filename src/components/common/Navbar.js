@@ -1,6 +1,9 @@
-
+import { useState, useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
+
+import { logout, getCurrentUser } from '../../services/auth.service'
+
 import {
     Flex,
     Stack,
@@ -12,10 +15,51 @@ import {
 } from '@chakra-ui/react'
 
 const Navbar = () => {
+    const [currentUser, setCurrentUser] = useState(undefined)
 
+    useEffect(() => {
+        const user = getCurrentUser()
+        console.log(user)
+
+        if (user) {
+            setCurrentUser(user)
+        }
+    }, [])
+
+    let profileUrl = null
+
+    if(currentUser){
+        console.log(currentUser)
+    }
+
+    const logOut = () => {
+        logout()
+    }
 
     return(
-        <div>this is a navbar</div>
+        <div>
+            <nav>
+                {currentUser ? (
+                    <div>
+                        <li>
+                            <a href='/login' onClick={logOut}>
+                            Logout
+                            </a>
+                        </li>
+                    </div>
+                    
+                ) : (
+                    <div>
+                        <li>
+                            <Link to={'/login'}>
+                                Login
+                            </Link>
+                        </li>
+                    </div>
+                )}
+                
+            </nav>
+        </div>
     )
 }
 

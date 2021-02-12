@@ -51,6 +51,7 @@ const LoginForm = (props) => {
             if(response.status.code === 200){
                 //send user to homepage with successful login
                 history.push('/home')
+                window.location.reload()
             }
             else {
                 setMessage(resMessage(response.status))

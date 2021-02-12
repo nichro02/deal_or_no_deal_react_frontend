@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import {setItem, getItem, removeItem} from '../utilities/localStorage.utilities'
 
+
 const API_URL="http://localhost:8000/api/v1/players/"
 
 //register user
@@ -23,13 +24,17 @@ export const login = (username, password) => {
         password
     })
     .then((response) => {
-        if(response.data.accessToken){
+        if(response.data){
             setItem('user', response.data)
-            
         }
         console.log(response)
         return response.data
     })
+}
+
+//get current user
+export const getCurrentUser = () => {
+    return getItem('user')
 }
 
 //logout user
@@ -37,7 +42,3 @@ export const logout = () => {
     removeItem('user')
 }
 
-//get current user
-export const getCurrentUser = () => {
-    return getItem('user')
-}
