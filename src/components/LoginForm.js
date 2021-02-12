@@ -77,6 +77,11 @@ const LoginForm = (props) => {
                         </InputGroup>
                     </FormControl>
 
+
+                    <Divider 
+                        borderColor='gray.300'
+                    />
+
                     <FormControl isRequired>
                         <InputGroup>
                             <InputLeftElement children={<Icon name='info' />} />

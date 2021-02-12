@@ -4,6 +4,16 @@ import {setItem, getItem, removeItem} from '../utilities/localStorage.utilities'
 
 const API_URL="http://localhost:8000/api/v1/players/"
 
+//register user
+export const register = (username, email, password) => {
+    return axios
+    .post(API_URL+'register', {
+        username,
+        email,
+        password
+    })
+}
+
 //login user
 export const login = (username, password) => {
     return axios
