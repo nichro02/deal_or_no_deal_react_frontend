@@ -12,6 +12,8 @@ const Game = () => {
     const [bonusRound, setBonusRound] = useState(false)
     //set state for score
     const [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
+    //set state for user case
+    const [userCase, setUserCase] = useState()
     
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -43,6 +45,7 @@ const Game = () => {
             let newCase = <Briefcase 
                 value = {prizeValues[i]}
                 id = {i}
+                key = {i}
                 counter= {decrementCasesToOpen}
             />
             briefcaseArray.push(newCase)
@@ -58,23 +61,39 @@ const Game = () => {
             let bonusCase = <BonusBriefcase 
                 value = {bonusOutcomes[i]}
                 id = {'bonus'}
+                key = {'bonus'}
             />
             briefcaseArray.push(bonusCase)
         }
         return briefcaseArray
     }
 
+    //handle user selects briefcase
+    const playersCase = () => {
+        setUserCase(<Briefcase />)
+        setActiveBoard(true)
+    }
+
     //decrement cases to open
     const decrementCasesToOpen = () => {
-        setCasesLeftToOpen(casesLeftToOpen - 1)
+        if(activeBoard === false && casesLeftToOpen === 21){
+            playersCase()
+        }
+        else {
+            setCasesLeftToOpen(casesLeftToOpen - 1)
+        }
     }
-    
     
 
     return(
         
         <div>
-            {casesLeftToOpen}
+            <div>
+                Your case: {userCase}
+            </div>
+            <div>
+                Cases left to open: {casesLeftToOpen}
+            </div>
             {createBonusCase()} 
         </div>
     )

@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
+import { Box } from '@chakra-ui/react'
+
 const Briefcase = (props) => {
     //set state for open status
     const[opened, setOpened] = useState(false)
+
+    
 
     const counter = props.counter
 
@@ -22,14 +26,14 @@ const Briefcase = (props) => {
     */
 
     return(
-        <div key={props.id} id={props.id} onClick={openBriefcase}>
+        <Box id={props.id} onClick={openBriefcase} w="25%" display='inline-block'>
             <div>
                 <img src={'/gameBriefcase.png'}/>
             </div>
             <div>
                 <p>{props.value}</p>
             </div>
-        </div>
+        </Box>
     )
 }
 

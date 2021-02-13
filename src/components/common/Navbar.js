@@ -52,8 +52,8 @@ const Navbar = () => {
 
                         </li>
                         <li>
-                            <a href='/login' onClick={logOut}>
-                            Logout
+                            <a href='/home'>
+                                Home
                             </a>
                         </li>
                         <li>
@@ -61,6 +61,12 @@ const Navbar = () => {
                                 Start Playing
                             </a>
                         </li>
+                        <li>
+                            <a href='/login' onClick={logOut}>
+                            Logout
+                            </a>
+                        </li>
+                        
                     </div>
                     
                 ) : (

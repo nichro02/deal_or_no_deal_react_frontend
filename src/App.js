@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import Navbar from './components/common/Navbar'
 import Game from './components/Game'
 import RegistrationForm from './components/RegistrationForm'
+import Home from './components/Home'
 
 import { ChakraProvider, Flex } from '@chakra-ui/react'
 
@@ -17,6 +18,7 @@ function App() {
         <Switch>
           <Route exact path= '/game' component={Game} />
           <Route exact path={['/login','signup']} component={RegistrationForm} />
+          <Route exact path='/home' component={Home} />
         </Switch>
       </Flex>
       
