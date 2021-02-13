@@ -46,6 +46,11 @@ const Navbar = () => {
                             Logout
                             </a>
                         </li>
+                        <li>
+                            <a href='/game'>
+                                Start Playing
+                            </a>
+                        </li>
                     </div>
                     
                 ) : (
@@ -54,6 +59,11 @@ const Navbar = () => {
                             <Link to={'/login'}>
                                 Login
                             </Link>
+                        </li>
+                        <li>
+                            <a href='/game'>
+                                Start Playing
+                            </a>
                         </li>
                     </div>
                 )}

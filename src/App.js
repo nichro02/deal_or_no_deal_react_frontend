@@ -4,7 +4,7 @@ import Navbar from './components/common/Navbar'
 import Game from './components/Game'
 import RegistrationForm from './components/RegistrationForm'
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, Flex } from '@chakra-ui/react'
 
 import logo from './logo.svg';
 import './css/App.css';
@@ -12,12 +12,15 @@ import './css/App.css';
 function App() {
   return (
     <ChakraProvider>
-      <Navbar />
-      <Switch>
-        <Route exact path= '/game' component={Game} />
-        <Route exact path={['/login','signup']} component={RegistrationForm} />
-      </Switch>
-      Hello world
+      <Flex direction='column' align='center' justify='center'>
+        <Navbar />
+        <Switch>
+          <Route exact path= '/game' component={Game} />
+          <Route exact path={['/login','signup']} component={RegistrationForm} />
+        </Switch>
+      </Flex>
+      
+      
       
       {/* 
     <div className="App">
