@@ -7,18 +7,52 @@ import { Box } from '@chakra-ui/react'
 
 const Game = () => {
     //set state for board
-    const [activeBoard, setActiveBoard] = useState(false)
+    let [activeBoard, setActiveBoard] = useState(false)
     //set state for bank offer
-    const [bankOffer, setBankOffer] = useState(0)
+    let [bankOffer, setBankOffer] = useState(0)
     //set state for bonus round
-    const [bonusRound, setBonusRound] = useState(false)
+    let [bonusRound, setBonusRound] = useState(false)
     //set state for score
-    const [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
+    let [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
     //set state for user case
-    const [userCase, setUserCase] = useState(false)
+    let [userSelectedCase, setUserSelectedCase] = useState(false)
     //set state for eliminated values
-    const [eliminatedValues, setEliminatedValues] = useState([])
-    
+    let [eliminatedValues, setEliminatedValues] = useState([])
+    //briefcaseArrau
+    let [briefcaseArray, setBriefcaseArray] = useState([])
+
+    useEffect(() => {
+        let newArray = []
+        for(let i = 0; i < shuffledCases.length; i++) {
+            let newCase = <Briefcase 
+                value = {shuffledCases[i]}
+                id = {i}
+                key = {i}
+                counter= {decrementCasesToOpen}
+                eliminateCase={trackEliminatedValues}
+            />
+            newArray.push(newCase)
+            //setBriefcaseArray([...briefcaseArray, newCase])
+            //console.log(shuffledCases)
+            //console.log(newCase)
+            //console.log(briefcaseArray)
+        }
+        //return briefcaseArray
+        for(let i = 0; i < 1; i++) {
+            let bonusCase = <BonusBriefcase 
+                value = {shuffledBonusCases[i]}
+                id = {'bonus'}
+                key = {'bonus'}
+            />
+            //briefcaseArray.push(bonusCase)
+            newArray.push(bonusCase)
+            
+            console.log(bonusCase)
+        }
+        setBriefcaseArray(newArray)
+        console.log(briefcaseArray)
+    }, [])
+
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
 
@@ -29,7 +63,7 @@ const Game = () => {
     // player's winnings
     let playerWinnings = 0
     // holding array to return briefcases
-    let briefcaseArray = []
+    //let briefcaseArray = []
     //shuffle briefcases
     let shuffledCases = []
     //bonus briefcase
@@ -70,34 +104,46 @@ const Game = () => {
     //create briefcases
     const createBriefcases = () => {
         //shufflePrizes(prizeValues)
+        let newArray = []
         for(let i = 0; i < shuffledCases.length; i++) {
             let newCase = <Briefcase 
                 value = {shuffledCases[i]}
                 id = {i}
                 key = {i}
-                isUserCase = {userCase}
                 counter= {decrementCasesToOpen}
                 eliminateCase={trackEliminatedValues}
             />
-            briefcaseArray.push(newCase)
+            newArray.push(newCase)
+            //setBriefcaseArray([...briefcaseArray, newCase])
+            //console.log(shuffledCases)
+            //console.log(newCase)
+            //console.log(briefcaseArray)
         }
-        return briefcaseArray
+        //return briefcaseArray
+        
+        setBriefcaseArray([...briefcaseArray, ...newArray])
+        console.log(briefcaseArray)
     }
 
     //create bonus case
     const createBonusCase = () => {
         createBriefcases()
         //shufflePrizes(bonusOutcomes)
+        let bonusCaseHolder = []
         for(let i = 0; i < 1; i++) {
             let bonusCase = <BonusBriefcase 
                 value = {shuffledBonusCases[i]}
                 id = {'bonus'}
                 key = {'bonus'}
             />
-            briefcaseArray.push(bonusCase)
+            //briefcaseArray.push(bonusCase)
+            bonusCaseHolder.push(bonusCase)
+            
+            console.log(bonusCase)
         }
+        setBriefcaseArray([...briefcaseArray, ...bonusCaseHolder])
         //console.log(briefcaseArray)
-        return briefcaseArray
+        //return briefcaseArray
     }
 
     
@@ -108,12 +154,19 @@ const Game = () => {
     
     //handle user selects briefcase
     const playersCase = () => {
-        setUserCase(true)
+        //setUserSelectedCase(true)
         setActiveBoard(true)
     }
 
     //decrement cases to open
     const decrementCasesToOpen = () => {
+        console.log('ALERT')
+        //let countdown = casesLeftToOpen
+        //console.log('COUNTDOWN', countdown)
+        //console.log('COUNTDOWN', countdown-1)
+        setCasesLeftToOpen(casesLeftToOpen--)
+        bankerCalls()
+        /*    
         if(activeBoard === false && casesLeftToOpen === 21){
             playersCase()
         }
@@ -121,13 +174,15 @@ const Game = () => {
             setCasesLeftToOpen(casesLeftToOpen - 1)
             bankerCalls()
         }
+        */
     }
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
         console.log(value)
-        
-        setEliminatedValues([...eliminatedValues, value])
+        let values = eliminatedValues
+        values.push(value)
+        setEliminatedValues(values)
         console.log(eliminatedValues)
     }
     
@@ -169,9 +224,11 @@ const Game = () => {
 
 
     //declare players decision points
+    //process whether player has accepted or rejected deal
 
-    
-    //process whether player has accepted or rejected deal 
+    const dealOrNoDeal = (event) => {
+
+    }
 
 
     //keep track of past offers
@@ -188,12 +245,12 @@ const Game = () => {
         
         <div>
             <div>
-                Your case: {userCase}
+                Your case: {userSelectedCase}
             </div>
             <div>
                 Cases left to open: {casesLeftToOpen}
             </div>
-            {createBonusCase()}
+            {briefcaseArray.map(briefcase => {return briefcase})}
         </div>
     )
 }
