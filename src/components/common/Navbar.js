@@ -29,7 +29,9 @@ const Navbar = () => {
     let profileUrl = null
 
     if(currentUser){
-        console.log(currentUser)
+        console.log(currentUser.data)
+        profileUrl = `/profile/${currentUser.data.username}`
+        console.log(profileUrl)
     }
 
     const logOut = () => {
@@ -40,7 +42,15 @@ const Navbar = () => {
         <div>
             <nav>
                 {currentUser ? (
+
+                    
                     <div>
+                        <li>
+                            <Link to={profileUrl}>
+                                {currentUser.data.username}
+                            </Link>
+
+                        </li>
                         <li>
                             <a href='/login' onClick={logOut}>
                             Logout
