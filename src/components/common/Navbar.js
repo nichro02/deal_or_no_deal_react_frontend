@@ -19,7 +19,7 @@ const Navbar = () => {
 
     useEffect(() => {
         const user = getCurrentUser()
-        console.log(user)
+        //console.log(user)
 
         if (user) {
             setCurrentUser(user)
@@ -29,9 +29,9 @@ const Navbar = () => {
     let profileUrl = null
 
     if(currentUser){
-        console.log(currentUser.data)
+        //console.log(currentUser.data)
         profileUrl = `/profile/${currentUser.data.username}`
-        console.log(profileUrl)
+        //console.log(profileUrl)
     }
 
     const logOut = () => {

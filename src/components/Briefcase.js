@@ -7,23 +7,21 @@ const Briefcase = (props) => {
     const[opened, setOpened] = useState(false)
 
     
-
+    
     const counter = props.counter
+    const eliminateValue = props.eliminateCase
+
+    const isUserCase = props.isUserCase
 
     const openBriefcase = (event) => {
         if(opened === false) {
-            console.log('Briefcase opened')
-            console.log(props.counter)
+            //console.log('Briefcase opened')
+            console.log(props.value)
+            eliminateValue(props.value)
             counter()
         }
         setOpened(true)
     }
-
-    /*
-    const addBriefcaseListener = () =>{
-        addEventListener('click', openBriefcase)
-    }
-    */
 
     return(
         <Box id={props.id} onClick={openBriefcase} w="25%" display='inline-block'>
