@@ -6,8 +6,10 @@ import BonusBriefcase from './BonusBriefcase'
 import { Box } from '@chakra-ui/react'
 
 const Game = () => {
+    //toggle
+    let isOn = true
     //set state for board
-    let [activeBoard, setActiveBoard] = useState(false)
+    let [activeBoard, setActiveBoard] = useState(true)
     //set state for bank offer
     let [bankOffer, setBankOffer] = useState(0)
     //set state for bonus round
@@ -18,7 +20,7 @@ const Game = () => {
     let [userSelectedCase, setUserSelectedCase] = useState(false)
     //set state for eliminated values
     let [eliminatedValues, setEliminatedValues] = useState([])
-    //briefcaseArrau
+    //set state for array of briefcases to display on gameboard
     let [briefcaseArray, setBriefcaseArray] = useState([])
 
     useEffect(() => {
@@ -32,26 +34,24 @@ const Game = () => {
                 eliminateCase={trackEliminatedValues}
             />
             newArray.push(newCase)
-            //setBriefcaseArray([...briefcaseArray, newCase])
-            //console.log(shuffledCases)
-            //console.log(newCase)
-            //console.log(briefcaseArray)
+
         }
-        //return briefcaseArray
+        
         for(let i = 0; i < 1; i++) {
             let bonusCase = <BonusBriefcase 
                 value = {shuffledBonusCases[i]}
                 id = {'bonus'}
                 key = {'bonus'}
             />
-            //briefcaseArray.push(bonusCase)
-            newArray.push(bonusCase)
             
-            console.log(bonusCase)
+            newArray.push(bonusCase)
         }
         setBriefcaseArray(newArray)
-        console.log(briefcaseArray)
     }, [])
+
+    useEffect(() => {
+        console.log('BOARD STATUS', activeBoard)
+    },[activeBoard])
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -151,39 +151,27 @@ const Game = () => {
         //console.log(briefcaseArray)
         return briefcaseArray.map(briefcase => <Box>{briefcase}</Box>)
     }
-    
-    //handle user selects briefcase
-    const playersCase = () => {
-        //setUserSelectedCase(true)
-        setActiveBoard(true)
-    }
+
 
     //decrement cases to open
     const decrementCasesToOpen = () => {
-        console.log('ALERT')
-        //let countdown = casesLeftToOpen
-        //console.log('COUNTDOWN', countdown)
-        //console.log('COUNTDOWN', countdown-1)
-        setCasesLeftToOpen(casesLeftToOpen--)
-        bankerCalls()
-        /*    
-        if(activeBoard === false && casesLeftToOpen === 21){
-            playersCase()
-        }
-        else {
-            setCasesLeftToOpen(casesLeftToOpen - 1)
+        //let response = await activeBoard
+        console.log('----->',activeBoard)
+        //console.log('-_-___-', response)
+        if(isOn === true){
             bankerCalls()
+            setCasesLeftToOpen(casesLeftToOpen--)
+            
         }
-        */
     }
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
-        console.log(value)
+        //console.log(value)
         let values = eliminatedValues
         values.push(value)
         setEliminatedValues(values)
-        console.log(eliminatedValues)
+        //console.log(eliminatedValues)
     }
     
     //display available values
@@ -199,7 +187,10 @@ const Game = () => {
             || casesLeftToOpen === 2
             || casesLeftToOpen === 1    
         ) {
-            console.log('BANKER CALLS')
+            isOn = false
+            //setActiveBoard(false)
+            console.log('BANKER CALLS',casesLeftToOpen,'TO OPEN' )
+            //console.log(activeBoard)
             calculateOffer()
         }
     }
@@ -227,7 +218,18 @@ const Game = () => {
     //process whether player has accepted or rejected deal
 
     const dealOrNoDeal = (event) => {
-
+        //need to create buttons
+        if(event.target==='Deal' && bonusRound === false){
+            console.log('User accepts offer. Send to Bonus Round')
+            setBonusRound(true)
+        } else if(event.target==='No Deal' && bonusRound === false){
+            console.log('User rejects offer. Reactivate board and keep playing')
+            setActiveBoard(true)
+        } else if(event.target==='Deal' && bonusRound === true){
+            console.log('User played bonus round. Calculate their winnings')
+        } else if(event.target==='No Deal' && bonusRound === false){
+            console.log('User did not play bonus round')
+        }
     }
 
 

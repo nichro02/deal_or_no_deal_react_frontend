@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Box } from '@chakra-ui/react'
 
 const Briefcase = (props) => {
-    console.log(props)
+    //console.log(props)
     //set state for open status
     const[opened, setOpened] = useState(false)
 
@@ -17,8 +17,8 @@ const Briefcase = (props) => {
     const openBriefcase = (event) => {
         
         if(opened === false) {
-            console.log('Briefcase opened')
-            console.log(props.value)
+            //console.log('Briefcase opened')
+            //console.log(props.value)
             eliminateValue(props.value)
             counter()
             setOpened(true)
