@@ -10,13 +10,15 @@ const Game = () => {
     const [bankOffer, setBankerOffer] = useState(false)
     //set state for bonus round
     const [bonusRound, setBonusRound] = useState(false)
+    //set state for score
+    const [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
     
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
     //bonus outcomes
     const bonusOutcomes = ['add 10k', 'double money', 'lose half', 'lose all']
     //total cases to open
-    const casesToOpen = 21
+    //let casesToOpen = 21
     //banker's offer
     let offerValue = 0
     // player's winnings
@@ -41,12 +43,14 @@ const Game = () => {
             let newCase = <Briefcase 
                 value = {prizeValues[i]}
                 id = {i}
+                counter= {decrementCasesToOpen}
             />
             briefcaseArray.push(newCase)
         }
         return briefcaseArray
     }
 
+    //create bonus case
     const createBonusCase = () => {
         createBriefcases()
         shufflePrizes(bonusOutcomes)
@@ -59,12 +63,18 @@ const Game = () => {
         }
         return briefcaseArray
     }
+
+    //decrement cases to open
+    const decrementCasesToOpen = () => {
+        setCasesLeftToOpen(casesLeftToOpen - 1)
+    }
     
     
 
     return(
         
         <div>
+            {casesLeftToOpen}
             {createBonusCase()} 
         </div>
     )

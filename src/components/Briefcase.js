@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
 
-
-
 const Briefcase = (props) => {
     //set state for open status
     const[opened, setOpened] = useState(false)
 
+    const counter = props.counter
+
     const openBriefcase = (event) => {
         if(opened === false) {
             console.log('Briefcase opened')
+            console.log(props.counter)
+            counter()
         }
         setOpened(true)
     }
