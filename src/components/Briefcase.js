@@ -9,7 +9,7 @@ const Briefcase = (props) => {
 
     //const[caseSelected, setCaseSelected] = useState(false)
 
-    const [userCase, setUserCase] = useState(null)
+    //const [userCase, setUserCase] = useState('')
 
     /*
     useEffect(() => {
@@ -21,30 +21,19 @@ const Briefcase = (props) => {
     */
     const counter = props.counter
     const eliminateValue = props.eliminateCase
-    let casesLeft = props.casesLeft
+    
     
     //let isUserCase = false
-    //let userCase = null
+    let userCase = ''
 
     const openBriefcase = (event) => {
-        console.log(props)
-        /*
-        if(!userCase) {
-            console.log('SET USER CASE')
-            //isUserCase = true
-            //userCase = event.target.id
-            setUserCase(event.target.id)
-            //console.log(userCase)
-            counter()
-        }
-        else*/ if(opened === false) {
+        if(opened === false) {
             //console.log('Briefcase opened')
             //console.log(props.value)
             eliminateValue(props.value)
             counter()
             setOpened(true)
         }
-        
     }
 
     return(

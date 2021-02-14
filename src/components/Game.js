@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Briefcase from './Briefcase'
 import BonusBriefcase from './BonusBriefcase'
 
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 
 const Game = () => {
     //toggle board status
@@ -52,10 +52,11 @@ const Game = () => {
         }
         setBriefcaseArray(newArray)
     }, [])
-
+    
     useEffect(() => {
         console.log('BOARD STATUS', activeBoard)
     },[activeBoard])
+    
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -150,27 +151,18 @@ const Game = () => {
         //return briefcaseArray
     }
 
-    
-    const setBoard = () => {
-        //console.log(briefcaseArray)
-        return briefcaseArray.map(briefcase => <Box>{briefcase}</Box>)
-    }
-
-
     //decrement cases to open
     const decrementCasesToOpen = () => {
         //let response = await activeBoard
         //console.log('----->',activeBoard)
         //console.log('-_-___-', response)
-        if(casesLeftToOpen === 22){
-            setCasesLeftToOpen(casesLeftToOpen--)
-        }
         if(isOn === true){
             bankerCalls()
             setCasesLeftToOpen(casesLeftToOpen--)
             
         }
     }
+    
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
@@ -200,9 +192,9 @@ const Game = () => {
             isOn = false
             //setActiveBoard(false)
             console.log('BANKER CALLS',casesLeftToOpen,'TO OPEN' )
-            //console.log(activeBoard)
+            console.log(isOn)
             calculateOffer()
-            //dealOrNoDeal()
+            
         }
     }
 
@@ -254,6 +246,11 @@ const Game = () => {
 
     //calculate final winnings if player opens bonus case
 
+    //start new game
+    const startNewGame = () => {
+        window.location.reload()
+    }
+
     return(
         
         <div>
@@ -263,6 +260,18 @@ const Game = () => {
             <div>
                 Cases left to open: {casesLeftToOpen}
             </div>
+            {isOn ? (
+                <div>
+                    <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                </div>
+            ) : (
+                <div>
+                    <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
+                    <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
+                    <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                </div>
+            )
+            }
             {briefcaseArray.map(briefcase => {return briefcase})}
         </div>
     )
