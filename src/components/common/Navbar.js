@@ -30,7 +30,7 @@ const Navbar = () => {
 
     if(currentUser){
         //console.log(currentUser.data)
-        profileUrl = `/profile/${currentUser.data.username}`
+        profileUrl = `/profile/${currentUser.data.id}`
         //console.log(profileUrl)
     }
 
