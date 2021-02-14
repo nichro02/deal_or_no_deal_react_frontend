@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 import Briefcase from './Briefcase'
 import BonusBriefcase from './BonusBriefcase'
+import TurnCounter from './TurnCounter'
 
 import { Box, Button } from '@chakra-ui/react'
 
@@ -14,6 +15,8 @@ const Game = () => {
     let [activeBoard, setActiveBoard] = useState(true)
     //set state for bank offer
     let [bankOffer, setBankOffer] = useState(0)
+    //set state for player winnings
+    let [winnings, SetWinnings] = useState(0)
     //set state for bonus round
     //let [bonusRound, setBonusRound] = useState(false)
     //set state for score
@@ -24,8 +27,6 @@ const Game = () => {
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
     let [briefcaseArray, setBriefcaseArray] = useState([])
-    
-
 
     useEffect(() => {
         let newArray = []
@@ -36,6 +37,7 @@ const Game = () => {
                 key = {i}
                 counter= {decrementCasesToOpen}
                 eliminateCase={trackEliminatedValues}
+                turn={turnInfo}
             />
             newArray.push(newCase)
 
@@ -63,6 +65,8 @@ const Game = () => {
 
     //bonus outcomes
     const bonusOutcomes = ['add 10k', 'double money', 'lose half', 'lose all']
+    
+    let isOffer = false
     //banker's offer
     let offerValue = 0
     // player's winnings
@@ -73,6 +77,15 @@ const Game = () => {
     let shuffledCases = []
     //bonus briefcase
     let shuffledBonusCases = []
+
+    //send Turn Counter info
+    const turnInfo = () => {
+        return <TurnCounter 
+            casesLeft={casesLeftToOpen}
+            boardStatus={activeBoard}
+
+        />
+    }
 
     //shuffle prize values
     const shufflePrizes = (arr) => {
@@ -156,7 +169,8 @@ const Game = () => {
         //let response = await activeBoard
         //console.log('----->',activeBoard)
         //console.log('-_-___-', response)
-        if(isOn === true){
+        if(isOn === true && isOffer === false){
+            
             bankerCalls()
             setCasesLeftToOpen(casesLeftToOpen--)
             
@@ -190,7 +204,7 @@ const Game = () => {
             || casesLeftToOpen === 1    
         ) {
             isOn = false
-            //setActiveBoard(false)
+            setActiveBoard(false)
             console.log('BANKER CALLS',casesLeftToOpen,'TO OPEN' )
             console.log(isOn)
             calculateOffer()
@@ -214,32 +228,41 @@ const Game = () => {
         let offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
         console.log(offerValue)
         setBankOffer(offerValue)
+        return bankOffer
     }
-
 
     //declare players decision points
     //process whether player has accepted or rejected deal
 
     const dealOrNoDeal = (event) => {
-        //need to create buttons
-        if(event.target==='Deal' && bonusRound === false){
-            console.log('User accepts offer. Send to Bonus Round')
+        console.log(event.target.innerText)
+        const buttonText = event.target.innerText
+        if(buttonText==='Deal' && bonusRound === false){
+            console.log('Send to Bonus Round')
             bonusRound=true
-        } else if(event.target==='No Deal' && bonusRound === false){
+            playerAccepts()
+        } else if(buttonText==='No Deal' && bonusRound === false){
             console.log('User rejects offer. Reactivate board and keep playing')
             isOn=true
-        } else if(event.target==='Deal' && bonusRound === true){
+            setActiveBoard(true)
+            
+        } else if(buttonText==='Deal' && bonusRound === true){
             bonusRound=true
-        } else if(event.target==='No Deal' && bonusRound === false){
+        } else if(buttonText==='No Deal' && bonusRound === false){
             isOn=true
         }
     }
 
-
     //keep track of past offers
 
     
-    //execute if player decides to switch cases
+    //execute if player accepts deal
+    const playerAccepts = () => {
+        console.log(bankOffer)
+        SetWinnings(bankOffer)
+        console.log('Player won', winnings)
+        return winnings
+    }
 
     //execute if player decides not to switch
 
@@ -247,7 +270,7 @@ const Game = () => {
     //calculate final winnings if player opens bonus case
 
     //start new game
-    const startNewGame = () => {
+    const startNewGame = (event) => {
         window.location.reload()
     }
 
@@ -255,12 +278,12 @@ const Game = () => {
         
         <div>
             <div>
-                Your case: {userSelectedCase}
+                Your case:
             </div>
             <div>
-                Cases left to open: {casesLeftToOpen}
+                Cases left to open: {turnInfo()}
             </div>
-            {isOn ? (
+            {activeBoard ? (
                 <div>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </div>
