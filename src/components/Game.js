@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import Briefcase from './Briefcase'
 import BonusBriefcase from './BonusBriefcase'
 import TurnCounter from './TurnCounter'
 
+import { recordScore } from '../services/game.service'
+
 import { Box, Button } from '@chakra-ui/react'
+
+import { getCurrentUser } from '../services/auth.service'
+
 
 const Game = () => {
     //toggle board status
@@ -225,7 +231,7 @@ const Game = () => {
         })
 
         //calculate offer
-        let offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
+        offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
         console.log(offerValue)
         setBankOffer(offerValue)
         return bankOffer
@@ -247,27 +253,37 @@ const Game = () => {
             setActiveBoard(true)
             
         } else if(buttonText==='Deal' && bonusRound === true){
-            bonusRound=true
+            sendScore()
         } else if(buttonText==='No Deal' && bonusRound === false){
-            isOn=true
+            sendScore()
         }
     }
-
-    //keep track of past offers
-
     
     //execute if player accepts deal
     const playerAccepts = () => {
         console.log(bankOffer)
-        SetWinnings(bankOffer)
-        console.log('Player won', winnings)
+        playerWinnings = bankOffer
+        console.log(playerWinnings)
+        SetWinnings(playerWinnings)
+        
+        console.log('Player won', playerWinnings)
         return winnings
     }
 
     //execute if player decides not to switch
 
-
     //calculate final winnings if player opens bonus case
+
+    //record score
+    const sendScore = () => {
+        //get user id
+        //get score
+        const currentUser = getCurrentUser()
+        const id = currentUser.data.id
+        let user_id = id
+        let score = playerWinnings
+        recordScore(user_id, score)
+    }
 
     //start new game
     const startNewGame = (event) => {
