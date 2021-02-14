@@ -7,16 +7,37 @@ const Briefcase = (props) => {
     //set state for open status
     const[opened, setOpened] = useState(false)
 
-    //set state for users briefcase
-    const[isUserCase, setIsUserCase] = useState(false)
-    
+    //const[caseSelected, setCaseSelected] = useState(false)
+
+    const [userCase, setUserCase] = useState(null)
+
+    /*
+    useEffect(() => {
+        if(!caseSelected){
+            setCaseSelected(true)
+            console.log("USE EFFECT FIRED")
+        }
+    }, [])
+    */
     const counter = props.counter
     const eliminateValue = props.eliminateCase
+    let casesLeft = props.casesLeft
     
+    //let isUserCase = false
+    //let userCase = null
 
     const openBriefcase = (event) => {
-        
-        if(opened === false) {
+        console.log(props)
+        /*
+        if(!userCase) {
+            console.log('SET USER CASE')
+            //isUserCase = true
+            //userCase = event.target.id
+            setUserCase(event.target.id)
+            //console.log(userCase)
+            counter()
+        }
+        else*/ if(opened === false) {
             //console.log('Briefcase opened')
             //console.log(props.value)
             eliminateValue(props.value)
@@ -29,11 +50,15 @@ const Briefcase = (props) => {
     return(
         <Box id={props.id} onClick={openBriefcase} w="25%" display='inline-block'>
             <div>
-                <img src={'/gameBriefcase.png'}/>
+                <img id={props.id} src={'/gameBriefcase.png'}/>
             </div>
-            <div>
-                <p>{props.value}</p>
-            </div>
+            {opened && (
+                <div>
+                    <p>{props.value}</p>
+                </div>
+                )
+            }
+            
         </Box>
     )
 }

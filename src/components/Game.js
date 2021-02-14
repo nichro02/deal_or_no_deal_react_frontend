@@ -6,22 +6,26 @@ import BonusBriefcase from './BonusBriefcase'
 import { Box } from '@chakra-ui/react'
 
 const Game = () => {
-    //toggle
+    //toggle board status
     let isOn = true
+    //bonus round
+    let bonusRound = false
     //set state for board
     let [activeBoard, setActiveBoard] = useState(true)
     //set state for bank offer
     let [bankOffer, setBankOffer] = useState(0)
     //set state for bonus round
-    let [bonusRound, setBonusRound] = useState(false)
+    //let [bonusRound, setBonusRound] = useState(false)
     //set state for score
-    let [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
+    let [casesLeftToOpen, setCasesLeftToOpen] = useState(22)
     //set state for user case
-    let [userSelectedCase, setUserSelectedCase] = useState(false)
+    let [userSelectedCase, setUserSelectedCase] = useState()
     //set state for eliminated values
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
     let [briefcaseArray, setBriefcaseArray] = useState([])
+    
+
 
     useEffect(() => {
         let newArray = []
@@ -156,8 +160,11 @@ const Game = () => {
     //decrement cases to open
     const decrementCasesToOpen = () => {
         //let response = await activeBoard
-        console.log('----->',activeBoard)
+        //console.log('----->',activeBoard)
         //console.log('-_-___-', response)
+        if(casesLeftToOpen === 22){
+            setCasesLeftToOpen(casesLeftToOpen--)
+        }
         if(isOn === true){
             bankerCalls()
             setCasesLeftToOpen(casesLeftToOpen--)
@@ -167,11 +174,14 @@ const Game = () => {
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
-        //console.log(value)
+        console.log(casesLeftToOpen)
         let values = eliminatedValues
-        values.push(value)
-        setEliminatedValues(values)
-        //console.log(eliminatedValues)
+        if(casesLeftToOpen < 22) {
+            values.push(value)
+            setEliminatedValues(values)
+            console.log(eliminatedValues)
+        }
+        
     }
     
     //display available values
@@ -192,6 +202,7 @@ const Game = () => {
             console.log('BANKER CALLS',casesLeftToOpen,'TO OPEN' )
             //console.log(activeBoard)
             calculateOffer()
+            //dealOrNoDeal()
         }
     }
 
@@ -221,14 +232,14 @@ const Game = () => {
         //need to create buttons
         if(event.target==='Deal' && bonusRound === false){
             console.log('User accepts offer. Send to Bonus Round')
-            setBonusRound(true)
+            bonusRound=true
         } else if(event.target==='No Deal' && bonusRound === false){
             console.log('User rejects offer. Reactivate board and keep playing')
-            setActiveBoard(true)
+            isOn=true
         } else if(event.target==='Deal' && bonusRound === true){
-            console.log('User played bonus round. Calculate their winnings')
+            bonusRound=true
         } else if(event.target==='No Deal' && bonusRound === false){
-            console.log('User did not play bonus round')
+            isOn=true
         }
     }
 
