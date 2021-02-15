@@ -339,15 +339,15 @@ const Game = () => {
                 Cases left to open {turnInfo()}
             </Box>
             {activeBoard ? (
-                <div>
+                <Container padding='0.5rem' centerContent>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
-                </div>
+                </Container>
             ) : (
-                <div>
+                <Box d='flex' alignItems='center' justifyContent='space-around' mb={6}>
                     <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
                     <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
-                </div>
+                </Box>
             )
             }
             <Box alignItems='center'>
