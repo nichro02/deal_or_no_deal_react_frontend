@@ -11,7 +11,7 @@ import { resMessage } from '../utilities/message.utilities'
 
 
 
-import { Box, Button, Container } from '@chakra-ui/react'
+import { Box, Button, Container, Image, Grid } from '@chakra-ui/react'
 
 const PlayerProfile = () => {
     //set state for error message
@@ -43,39 +43,30 @@ const PlayerProfile = () => {
     }, [])
     
 
-    //  const getPlayerScores = profile(id).then((response)=> {
-    //      const data = response.data.data
-    //      setPlayerProfile(data)
-    //  }).catch(error => {
-    //     console.log(error)
-    // })
-
-    //console.log(playerProfile)
-    //console.log(playerScores)
-
-    //const playerScores = playerProfile.games
-
     const showScores = playerScores.reverse().map((score, index) => {
          return(
-         <Box key={score.id}>{score.score}</Box>
+            <Box 
+                key={score.id}
+                border ='1px'
+                borderColor='gray.200'
+                w='30vw'
+                textAlign='center'
+            >
+                {score.score}
+            </Box>
          )
     })
-    
-    
-    // profile(id).then(user => {
-    //     const info = user.data.data
-    //     console.log(info)
-    //     return(
-    //         <div>
-    //             {info.player.username}
-    //         </div>
-    //     )
-    //     //.then(info => {setPlayerProfile(info)})
-    // })
 
     const updateButton = () => {
         if(currentUser.data.id == id){
-            return <Button onClick={handleBioUpdate}>Update My Bio</Button>
+            return (
+                <Button 
+                onClick={handleBioUpdate}
+                colorScheme='purple'
+                >
+                    Update My Bio
+                </Button>
+            )
         }
     }
 
@@ -91,7 +82,14 @@ const PlayerProfile = () => {
         // console.log(userId)
         // console.log(id)
         if(currentUser.data.id == id){
-            return <Button onClick={handleDelete}>Delete My Profile</Button>
+            return (
+                <Button 
+                    onClick={handleDelete}
+                    colorScheme='red'
+                >
+                    Delete My Profile
+                </Button>
+            )
         }
     }
 
@@ -111,27 +109,36 @@ const PlayerProfile = () => {
     }
     
     return(
-        <Box>
-            <Box>
-               {playerProfile.username}'s Profile
-            </Box>
-            <Box>
-                <strong>About Me</strong>
-                <Box>{playerProfile.bio}</Box>
-                <Box>{updateButton()}</Box>
-                {edit && (
-                    <EditBio bio={playerProfile.bio} editing={resetEditing}/>
-                )}
-            </Box>
+        <Box w='100vw'>
+            <Grid templateColumns="repeat(2, 1fr)" gap={8}>
+                <Box p={8}>
+                    <Box>
+                        <strong>{playerProfile.username}'s Profile</strong>
+                    <Image 
+                    src='//ssl.gstatic.com/accounts/ui/avatar_2x.png'
+                    alt='profile image'
+                    rounded='lg'
+                    />
+                    </Box>
+                    <Box>
+                        <strong>About Me</strong>
+                        <Box>{playerProfile.bio}</Box>
+                        <Box>{updateButton()}</Box>
+                        {edit && (
+                        <EditBio bio={playerProfile.bio} editing={resetEditing}/>
+                        )}
+                    </Box>
+                </Box>
             
-            
-            <Box>
-                <strong>Recent Games</strong>
-                {showScores}
-            </Box>
-            <Box>
+                <Container centerContent p={8}>
+                    <strong>Recent Games</strong>
+                    {showScores}
+                </Container>
+            </Grid>
+
+            <Container centerContent p={8}>
                 {deleteButton()}
-            </Box>
+            </Container>
             
         </Box>
     )
