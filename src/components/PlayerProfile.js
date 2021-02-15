@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import { profile, deleteUser } from '../services/profile.service'
+import EditBio from './EditBio'
+
+import { profile, deleteUser, putUpdate } from '../services/profile.service'
 import { getCurrentUser, logout } from '../services/auth.service'
 import {removeItem} from '../utilities/localStorage.utilities'
 
@@ -14,20 +16,24 @@ import { Box, Button, Container } from '@chakra-ui/react'
 const PlayerProfile = () => {
     //set state for error message
     const [message, setMessage] = useState("")
+    //player profile info
     const [playerProfile, setPlayerProfile] = useState([])
+    //player scores
     const [playerScores, setPlayerScores] = useState([])
-
+    
+    const [edit, setEdit] = useState(false)
+    console.log(edit)
     let history = useHistory()
 
     const currentUser = getCurrentUser()
-    const userId = currentUser.data.id
+    //const userId = currentUser.data.id
     const { id } = useParams()
 
     
     useEffect(() => {
         
         profile(id).then((response)=> {
-            console.log(response.data.data)
+            //console.log(response.data.data)
             setPlayerProfile(response.data.data.player)
             setPlayerScores(response.data.data.games)
     
@@ -44,8 +50,8 @@ const PlayerProfile = () => {
     //     console.log(error)
     // })
 
-    console.log(playerProfile)
-    console.log(playerScores)
+    //console.log(playerProfile)
+    //console.log(playerScores)
 
     //const playerScores = playerProfile.games
 
@@ -66,6 +72,20 @@ const PlayerProfile = () => {
     //     )
     //     //.then(info => {setPlayerProfile(info)})
     // })
+
+    const updateButton = () => {
+        if(currentUser.data.id == id){
+            return <Button onClick={handleBioUpdate}>Update My Bio</Button>
+        }
+    }
+
+    const handleBioUpdate = () => {
+        setEdit(true)
+    }
+
+    const resetEditing = () => {
+        setEdit(false)
+    }
 
     const deleteButton = () => {
         // console.log(userId)
@@ -98,14 +118,19 @@ const PlayerProfile = () => {
             <Box>
                 <strong>About Me</strong>
                 <Box>{playerProfile.bio}</Box>
+                <Box>{updateButton()}</Box>
+                {edit && (
+                    <EditBio bio={playerProfile.bio} editing={resetEditing}/>
+                )}
             </Box>
-            <Box>
-                {deleteButton()}
-            </Box>
+            
             
             <Box>
                 <strong>Recent Games</strong>
                 {showScores}
+            </Box>
+            <Box>
+                {deleteButton()}
             </Box>
             
         </Box>

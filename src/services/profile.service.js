@@ -9,8 +9,12 @@ export const profile = (id) => {
     return axios.get(API_URL+id)
 }
 
-export const putUpdate = (id) => {
-    return axios.put(API_URL+id)
+export const putUpdate = (id, bio) => {
+    return axios.put(API_URL+id,{
+        bio
+    }).then((res) => {
+        console.log(res)
+    })
 }
 
 export const deleteUser = (id) => {
