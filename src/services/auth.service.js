@@ -40,5 +40,8 @@ export const getCurrentUser = () => {
 //logout user
 export const logout = () => {
     removeItem('user')
+    return axios.get(API_URL+'logout', {}).then((response) => {
+        console.log(response)
+    })
 }
 
