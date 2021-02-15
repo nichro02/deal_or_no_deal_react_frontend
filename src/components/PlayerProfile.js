@@ -24,13 +24,13 @@ const PlayerProfile = () => {
     const { id } = useParams()
 
     
-    
     useEffect(() => {
-        let games = []
+        
         profile(id).then((response)=> {
             console.log(response.data.data)
-            setPlayerProfile(response.data.data)
+            setPlayerProfile(response.data.data.player)
             setPlayerScores(response.data.data.games)
+    
         }).catch(error => {
             console.log(error)
         })
@@ -93,7 +93,11 @@ const PlayerProfile = () => {
     return(
         <Box>
             <Box>
-               Username
+               {playerProfile.username}'s Profile
+            </Box>
+            <Box>
+                <strong>About Me</strong>
+                <Box>{playerProfile.bio}</Box>
             </Box>
             <Box>
                 {deleteButton()}

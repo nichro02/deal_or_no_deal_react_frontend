@@ -55,10 +55,12 @@ const Navbar = () => {
                     
                     <Grid templateColumns="repeat(5, 1fr)" gap={8}>
                         <Box w="70px" h="10">
-                            <Link to={profileUrl}>
+                            {/* <Link to={profileUrl}>
                                 {currentUser.data.username}
-                            </Link>
-
+                            </Link> */}
+                            <a href={profileUrl} >
+                            {currentUser.data.username}
+                            </a>
                         </Box>
                         <Spacer />
                         <Box w="170px" h="10" textAlign="right">
