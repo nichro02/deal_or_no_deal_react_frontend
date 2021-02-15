@@ -15,6 +15,7 @@ const PlayerProfile = () => {
     //set state for error message
     const [message, setMessage] = useState("")
     const [playerProfile, setPlayerProfile] = useState([])
+    const [playerScores, setPlayerScores] = useState([])
 
     let history = useHistory()
 
@@ -25,31 +26,34 @@ const PlayerProfile = () => {
     
     
     useEffect(() => {
+        let games = []
         profile(id).then((response)=> {
             console.log(response.data.data)
             setPlayerProfile(response.data.data)
+            setPlayerScores(response.data.data.games)
         }).catch(error => {
             console.log(error)
         })
     }, [])
     
 
-    // const getPlayerScores = profile(id).then((response)=> {
-    //     const data = response.data.data
-    //     setPlayerProfile(data)
-    // }).catch(error => {
+    //  const getPlayerScores = profile(id).then((response)=> {
+    //      const data = response.data.data
+    //      setPlayerProfile(data)
+    //  }).catch(error => {
     //     console.log(error)
     // })
 
     console.log(playerProfile)
+    console.log(playerScores)
 
-    // const playerScores = playerProfile.games
+    //const playerScores = playerProfile.games
 
-    // const showScores = playerScores.reverse().map((score, index) => {
-    //     return(
-    //     <Box key={score.id}>{score.score}</Box>
-    //     )
-    // })
+    const showScores = playerScores.reverse().map((score, index) => {
+         return(
+         <Box key={score.id}>{score.score}</Box>
+         )
+    })
     
     
     // profile(id).then(user => {
@@ -64,8 +68,8 @@ const PlayerProfile = () => {
     // })
 
     const deleteButton = () => {
-        console.log(userId)
-        console.log(id)
+        // console.log(userId)
+        // console.log(id)
         if(currentUser.data.id == id){
             return <Button onClick={handleDelete}>Delete My Profile</Button>
         }
@@ -97,7 +101,7 @@ const PlayerProfile = () => {
             
             <Box>
                 <strong>Recent Games</strong>
-                
+                {showScores}
             </Box>
             
         </Box>
