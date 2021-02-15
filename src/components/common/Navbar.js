@@ -11,7 +11,9 @@ import {
     useColorMode,
     IconButton,
     Box,
-    Image
+    Image,
+    Grid,
+    Spacer
 } from '@chakra-ui/react'
 
 const Navbar = () => {
@@ -27,6 +29,7 @@ const Navbar = () => {
     }, [])
 
     let profileUrl = null
+    
 
     if(currentUser){
         //console.log(currentUser.data)
@@ -39,53 +42,59 @@ const Navbar = () => {
     }
 
     return(
-        <div>
-            <nav>
+        <Flex
+            w='100vw'
+            fontSize={['md', 'lg', 'xl', 'xl']}
+            p={2}
+        >
+            
                 {currentUser ? (
-
                     
-                    <div>
-                        <li>
+                    <Grid templateColumns="repeat(5, 1fr)" gap={8}>
+                        <Box w="70px" h="10">
                             <Link to={profileUrl}>
                                 {currentUser.data.username}
                             </Link>
 
-                        </li>
-                        <li>
-                            <a href='/home'>
+                        </Box>
+                        <Spacer />
+                        <Box w="170px" h="10" textAlign="right">
+                            <Link to={'/home'}>
                                 Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href='/game'>
+                            </Link>
+                        </Box>
+                        <Box w="180px" h="10" textAlign="right">
+                            <Link to={'/game'}>
                                 Start Playing
-                            </a>
-                        </li>
-                        <li>
+                            </Link>
+                        </Box>
+                        <Box w="170px" h="10" textAlign="right">
                             <a href='/login' onClick={logOut}>
                             Logout
                             </a>
-                        </li>
+                        </Box>
                         
-                    </div>
+                    </Grid>    
+                    
                     
                 ) : (
-                    <div>
-                        <li>
+                    <Grid templateColumns="repeat(3, 1fr)" gap={8} w='100vw' justify="center">
+                        <Box w="100%" h="10" textAlign="center">
                             <Link to={'/login'}>
                                 Login
                             </Link>
-                        </li>
-                        <li>
+                        </Box>
+                        <Spacer />
+                        <Box w="100%" h="10" textAlign="center">
                             <a href='/game'>
                                 Start Playing
                             </a>
-                        </li>
-                    </div>
+                        </Box>
+                    </Grid>
                 )}
                 
-            </nav>
-        </div>
+            
+        </Flex>
     )
 }
 

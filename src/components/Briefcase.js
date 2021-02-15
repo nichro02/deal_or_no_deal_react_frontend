@@ -51,7 +51,7 @@ const Briefcase = (props) => {
                 </div>
                 ) : (
                     <div>
-                        <p>Briefcase {props.id + 1}</p>
+                        <p>Case {props.id + 1}</p>
                     </div>
                 )
             }

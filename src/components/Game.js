@@ -197,10 +197,7 @@ const Game = () => {
         }
         
     }
-    
-    //display available values
 
-    
     //declare when banker will call
     const bankerCalls = () => {
         interactions --

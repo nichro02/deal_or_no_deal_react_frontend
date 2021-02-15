@@ -6,14 +6,27 @@ const BonusBriefcase = (props) => {
 
     const[opened, setOpened] = useState(false)
 
+    const openBriefcase = (event) => {
+
+            setOpened(true)
+        
+    }
+
     return(
-        <Box key={props.id} id={props.id}w="25%" display='inline-block'>
+        <Box key={props.id} onClick={openBriefcase} id={props.id}w="25%" display='inline-block'>
             <div>
                 <img src={'/bonusBriefcase.png'}/>
             </div>
-            <div>
-                <p>{props.value}</p>
-            </div>
+            {opened ? (
+                <div>
+                    <p>{props.value}</p>
+                </div>
+                ) : (
+                    <div>
+                        <p>Bonus Briefcase</p>
+                    </div>
+                )
+            }
         </Box>
     )
 }
