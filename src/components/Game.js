@@ -253,8 +253,10 @@ const Game = () => {
             setActiveBoard(true)
             
         } else if(buttonText==='Deal' && bonusRound === true){
-            sendScore()
-        } else if(buttonText==='No Deal' && bonusRound === false){
+            calculateBonus()
+            
+            
+        } else if(buttonText==='No Deal' && bonusRound === true){
             sendScore()
         }
     }
@@ -270,18 +272,54 @@ const Game = () => {
         return winnings
     }
 
-    //execute if player decides not to switch
-
     //calculate final winnings if player opens bonus case
+    const calculateBonus = () => {
+        const bonusCase = briefcaseArray[briefcaseArray.length-1]
+        const outcome = bonusCase.props.value
+        let finalWinnings
+        console.log(outcome)
+        if(outcome === 'add 10k') {
+            console.log('add 10k')
+            finalWinnings = winnings + 10000
+            playerWinnings = finalWinnings
+            SetWinnings(finalWinnings)
+            console.log(winnings)
+            //return winnings
+        } else if(outcome === 'double money') {
+            console.log('double money')
+            finalWinnings = winnings * 2
+            playerWinnings = finalWinnings
+            SetWinnings(finalWinnings)
+            console.log(winnings)
+            //return winnings
+        } else if(outcome === 'lose half') {
+            console.log('lose half')
+            finalWinnings = winnings / 2
+            playerWinnings = finalWinnings
+            SetWinnings(finalWinnings)
+            console.log(winnings)
+            //return winnings
+        } else if(outcome === 'lose all') {
+            console.log('lose all')
+            finalWinnings = 0
+            playerWinnings = finalWinnings
+            SetWinnings(finalWinnings)
+            console.log(winnings)
+            //return winnings
+        }
+        sendScore()
+    }
 
     //record score
     const sendScore = () => {
         //get user id
         //get score
+        
         const currentUser = getCurrentUser()
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
+        console.log(score)
         recordScore(user_id, score)
     }
 
