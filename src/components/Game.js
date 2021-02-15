@@ -14,7 +14,7 @@ import { getCurrentUser } from '../services/auth.service'
 
 const Game = () => {
     //count total interaction in game
-    let interactions = 29
+    let interactions = 22
     //toggle board status
     let isOn = true
     //bonus round
@@ -177,10 +177,10 @@ const Game = () => {
         //let response = await activeBoard
         //console.log('----->',activeBoard)
         //console.log('-_-___-', response)
-        if(isOn === true && isOffer === false){
-            
+        if(activeBoard){
+            setCasesLeftToOpen(--casesLeftToOpen)
             bankerCalls()
-            setCasesLeftToOpen(casesLeftToOpen--)
+            
             
         }
     }
@@ -188,12 +188,12 @@ const Game = () => {
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
-        console.log(casesLeftToOpen)
+        //console.log(casesLeftToOpen)
         let values = eliminatedValues
         if(casesLeftToOpen < 22) {
             values.push(value)
             setEliminatedValues(values)
-            console.log(eliminatedValues)
+            //console.log(eliminatedValues)
         }
         
     }
@@ -203,13 +203,15 @@ const Game = () => {
     
     //declare when banker will call
     const bankerCalls = () => {
-        if(casesLeftToOpen === 16
-            || casesLeftToOpen === 13
-            || casesLeftToOpen === 10
-            || casesLeftToOpen === 7
-            || casesLeftToOpen === 4
-            || casesLeftToOpen === 2
-            || casesLeftToOpen === 1    
+        interactions --
+        console.log(interactions)
+        if(interactions === 16
+            || interactions === 12
+            || interactions === 8
+            || interactions === 6
+            || interactions === 4
+            || interactions === 2
+            || interactions === 1    
         ) {
             isOn = false
             setActiveBoard(false)

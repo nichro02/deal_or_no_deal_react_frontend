@@ -30,7 +30,7 @@ const Briefcase = (props) => {
     let userCase = ''
 
     const openBriefcase = (event) => {
-        console.log(info())
+        //console.log(info())
         if(opened === false) {
             //console.log('Briefcase opened')
             //console.log(props.value)
