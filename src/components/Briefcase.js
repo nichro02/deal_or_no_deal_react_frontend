@@ -45,10 +45,14 @@ const Briefcase = (props) => {
             <div>
                 <img id={props.id} src={'/gameBriefcase.png'}/>
             </div>
-            {opened && (
+            {opened ? (
                 <div>
                     <p>{props.value}</p>
                 </div>
+                ) : (
+                    <div>
+                        <p>Briefcase {props.id + 1}</p>
+                    </div>
                 )
             }
             

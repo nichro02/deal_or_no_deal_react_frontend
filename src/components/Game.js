@@ -13,6 +13,8 @@ import { getCurrentUser } from '../services/auth.service'
 
 
 const Game = () => {
+    //count total interaction in game
+    let interactions = 29
     //toggle board status
     let isOn = true
     //bonus round
