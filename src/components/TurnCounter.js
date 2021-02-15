@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Game from './Game'
 import Briefcase from './Briefcase'
 
+import { Box } from '@chakra-ui/react'
+
 const TurnCounter = (props) => {
     const [casesLeft, setCasesLeft] = useState(22)
     const [boardStatus, setBoardStatus] = useState(true)
@@ -23,7 +25,7 @@ const TurnCounter = (props) => {
 
     //console.log(props)
     
-    return(<div>{props.casesLeft}</div> )
+    return(<Box mb={4} textAlign='center'><strong>{props.casesLeft}</strong></Box>)
 }
 
 export default TurnCounter

@@ -42,13 +42,16 @@ const Navbar = () => {
     }
 
     return(
+        <>
+        <Box fontSize='4xl'><strong>Deal Or No Deal</strong></Box> 
         <Flex
             w='100vw'
             fontSize={['md', 'lg', 'xl', 'xl']}
             p={2}
         >
-            
+               
                 {currentUser ? (
+                    
                     
                     <Grid templateColumns="repeat(5, 1fr)" gap={8}>
                         <Box w="70px" h="10">
@@ -95,6 +98,7 @@ const Navbar = () => {
                 
             
         </Flex>
+        </>
     )
 }
 

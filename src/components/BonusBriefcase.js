@@ -14,17 +14,17 @@ const BonusBriefcase = (props) => {
 
     return(
         <Box key={props.id} onClick={openBriefcase} id={props.id}w="25%" display='inline-block'>
-            <div>
+            <Box>
                 <img src={'/bonusBriefcase.png'}/>
-            </div>
+            </Box>
             {opened ? (
-                <div>
+                <Box textAlign='center' mb={4}>
                     <p>{props.value}</p>
-                </div>
+                </Box>
                 ) : (
-                    <div>
-                        <p>Bonus Briefcase</p>
-                    </div>
+                    <Box textAlign='center' mb={4}>
+                        <p>Bonus Case</p>
+                    </Box>
                 )
             }
         </Box>

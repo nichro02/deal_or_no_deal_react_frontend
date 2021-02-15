@@ -7,7 +7,7 @@ import TurnCounter from './TurnCounter'
 
 import { recordScore } from '../services/game.service'
 
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, Container } from '@chakra-ui/react'
 
 import { getCurrentUser } from '../services/auth.service'
 
@@ -335,9 +335,9 @@ const Game = () => {
             <div>
                 Your case:
             </div>
-            <div>
-                Cases left to open: {turnInfo()}
-            </div>
+            <Box padding='0.5rem' width='20%' textAlign='center'>
+                Cases left to open {turnInfo()}
+            </Box>
             {activeBoard ? (
                 <div>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
@@ -350,7 +350,9 @@ const Game = () => {
                 </div>
             )
             }
+            <Box alignItems='center'>
             {briefcaseArray.map(briefcase => {return briefcase})}
+            </Box>
         </div>
     )
 }

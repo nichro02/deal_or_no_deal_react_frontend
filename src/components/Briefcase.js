@@ -42,17 +42,17 @@ const Briefcase = (props) => {
 
     return(
         <Box id={props.id} onClick={openBriefcase} w="25%" display='inline-block'>
-            <div>
+            <Box>
                 <img id={props.id} src={'/gameBriefcase.png'}/>
-            </div>
+            </Box>
             {opened ? (
-                <div>
+                <Box textAlign='center' mb={4}>
                     <p>{props.value}</p>
-                </div>
+                </Box>
                 ) : (
-                    <div>
+                    <Box textAlign='center' mb={4}>
                         <p>Case {props.id + 1}</p>
-                    </div>
+                    </Box>
                 )
             }
             
