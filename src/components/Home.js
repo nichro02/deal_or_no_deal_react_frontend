@@ -2,11 +2,10 @@ import { useState, useEffect } from 'react'
 
 import { get_scores } from '../services/game.service'
 
-import { Box, Button, Container } from '@chakra-ui/react'
+import { Box, Button, Container,Link } from '@chakra-ui/react'
 
 const Home = () => {
     let [scores, setScores] = useState([])
-    
 
     useEffect(() => {
         get_scores().then((response)=>{
@@ -17,34 +16,40 @@ const Home = () => {
         })
     }, [])
 
+
     const highScores = scores.map((score, index) => {
         return(
-            <div key={score.id}>
-                <div>{score.score}</div>
-                <div>{score.user_id.username}</div>
-            </div>
+            <Box
+                key={score.id}
+                border ='1px'
+                borderColor='gray.200'
+                w='30vw'
+                textAlign='center'
+                d='flex'
+                justifyContent='space-around'
+            >
+                <Box>
+                    {score.score}
+                </Box>
+                <Box>
+                    <a href = {`/profile/${score.user_id.id}`}>{score.user_id.username}</a>
+                </Box>
+            </Box>
         )
     })
 
-    // const highScores = get_scores().then(  (response) => {
-    //     //console.log(response)
-    //     const scoreInfo = response.data.data
-    //     setScores(scoreInfo)
-    //     return(
-    //         <Box>
-    //             {scoreInfo.map((score, index) =>{
-                    
-    //             })}
-    //         </Box>
-    //     )
-    // })
-    
-    
-    
     return(
-        <div>
-            {highScores}
-        </div>
+        <Box>
+            <Box p={8} textAlign='center'>
+                <Button colorScheme='purple'>
+                    <a href={'/game'}>Start Playing</a>
+                </Button>
+            </Box>
+            <Box p={8} textAlign='center'>
+                <strong>High Scores</strong>
+                {highScores}
+            </Box>
+        </Box>
     )
 }
 

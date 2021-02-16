@@ -42,18 +42,21 @@ const Navbar = () => {
     }
 
     return(
-        <>
-        <Box fontSize='4xl'><strong>Deal Or No Deal</strong></Box> 
-        <Flex
+        <Box
+            bg='#805AD5'
+            color='white'
+        >
+            <Box fontSize='4xl' textAlign='center'><strong>Deal Or No Deal</strong></Box> 
+            <Flex
             w='100vw'
             fontSize={['md', 'lg', 'xl', 'xl']}
             p={2}
-        >
+            >
                
                 {currentUser ? (
                     
                     
-                    <Grid templateColumns="repeat(5, 1fr)" gap={8}>
+                    <Grid templateColumns="repeat(5, 1fr)" gap={8} pl={8}>
                         <Box w="70px" h="10">
                             {/* <Link to={profileUrl}>
                                 {currentUser.data.username}
@@ -63,7 +66,7 @@ const Navbar = () => {
                             </a>
                         </Box>
                         <Spacer />
-                        <Box w="170px" h="10" textAlign="right">
+                        <Box w="180px" h="10" textAlign="right">
                             <Link to={'/home'}>
                                 Home
                             </Link>
@@ -99,8 +102,8 @@ const Navbar = () => {
                 )}
                 
             
-        </Flex>
-        </>
+            </Flex>
+        </Box>
     )
 }
 

@@ -122,8 +122,9 @@ const PlayerProfile = () => {
                     </Box>
                     <Box>
                         <strong>About Me</strong>
-                        <Box>{playerProfile.bio}</Box>
-                        <Box>{updateButton()}</Box>
+                        {!edit && (<><Box>{playerProfile.bio}</Box>
+                        <Box>{updateButton()}</Box></>)
+                        }
                         {edit && (
                         <EditBio bio={playerProfile.bio} editing={resetEditing}/>
                         )}

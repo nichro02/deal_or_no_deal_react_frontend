@@ -5,6 +5,7 @@ import { getCurrentUser } from '../services/auth.service.js'
 
 import { putUpdate, profile } from '../services/profile.service'
 
+import { Button } from '@chakra-ui/react'
 
 const EditBio = (props) => {
     console.log(props)
@@ -48,9 +49,13 @@ const EditBio = (props) => {
                     <label>
                         <input type='text' value={bio} onChange={onChangePost} />
                     </label>
-                    <input type='submit' value='Submit' />
+                    <Button 
+                        type='submit' value='Submit'
+                        colorScheme='green' 
+                    >
+                        Update
+                    </Button>
                 </form>
-
             )}
         </div>
     )
