@@ -16,6 +16,8 @@ import {
     Spacer
 } from '@chakra-ui/react'
 
+import { MoonIcon } from '@chakra-ui/icons'
+
 const Navbar = () => {
     const [currentUser, setCurrentUser] = useState(undefined)
 
@@ -27,6 +29,8 @@ const Navbar = () => {
             setCurrentUser(user)
         }
     }, [])
+
+    const { colorMode, toggleColorMode } = useColorMode()
 
     let profileUrl = null
     
@@ -46,7 +50,11 @@ const Navbar = () => {
             bg='#805AD5'
             color='white'
         >
-            <Box fontSize='4xl' textAlign='center'><strong>Deal Or No Deal</strong></Box> 
+            <Box fontSize='4xl' textAlign='center'>
+                <Link to={'/home'}>
+                <strong>Deal Or No Deal</strong>
+                </Link>
+            </Box> 
             <Flex
             w='100vw'
             fontSize={['md', 'lg', 'xl', 'xl']}
@@ -67,14 +75,20 @@ const Navbar = () => {
                         </Box>
                         <Spacer />
                         <Box w="180px" h="10" textAlign="right">
-                            <Link to={'/home'}>
-                                Home
-                            </Link>
-                        </Box>
-                        <Box w="180px" h="10" textAlign="right">
                             <Link to={'/game'}>
                                 Start Playing
                             </Link>
+                        </Box>
+                        <Box w="180px" h="10" textAlign="right">
+                            <IconButton
+                                rounded='full'
+                                onClick={toggleColorMode}
+                                icon={<MoonIcon color={'yellow'}/>}
+                                bg={'purple.200'}
+                                aria-label='Toggle dark mode'
+                            >
+                                Toggle Dark Mode
+                            </IconButton>
                         </Box>
                         <Box w="170px" h="10" textAlign="right">
                             <a href='/login' onClick={logOut}>
