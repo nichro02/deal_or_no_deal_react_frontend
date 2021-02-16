@@ -30,7 +30,7 @@ const Game = () => {
     //set state for score
     let [casesLeftToOpen, setCasesLeftToOpen] = useState(22)
     //set state for user case
-    let [userSelectedCase, setUserSelectedCase] = useState()
+    let [userSelectedCase, setUserSelectedCase] = useState(null)
     //set state for eliminated values
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
@@ -46,6 +46,8 @@ const Game = () => {
                 counter= {decrementCasesToOpen}
                 eliminateCase={trackEliminatedValues}
                 turn={turnInfo}
+                numCases={casesLeftToOpen}
+                userCase={setUserCase}
             />
             newArray.push(newCase)
 
@@ -185,6 +187,13 @@ const Game = () => {
         }
     }
     
+    const setUserCase = (event) => {
+        if(!userSelectedCase){
+            setUserSelectedCase(event)
+            console.log('`````````',event)
+            console.log('!!!!!!!!',userSelectedCase)
+        }
+    }
 
     //track eliminted values
     const trackEliminatedValues = (value) => {

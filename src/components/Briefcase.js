@@ -9,34 +9,30 @@ const Briefcase = (props) => {
     //set state for open status
     const[opened, setOpened] = useState(false)
 
-    //const[caseSelected, setCaseSelected] = useState(false)
+    let [numCases, setNumCases] = useState(22)
 
-    //const [userCase, setUserCase] = useState('')
-
-    /*
-    useEffect(() => {
-        if(!caseSelected){
-            setCaseSelected(true)
-            console.log("USE EFFECT FIRED")
-        }
-    }, [])
-    */
     const counter = props.counter
     const eliminateValue = props.eliminateCase
     const info = props.turn
-    
+    const usersCase = props.userCase
+
+    //let numCases = 22
+    console.log(numCases)
     
     //let isUserCase = false
-    let userCase = ''
+    let userCase = props.userCase
 
     const openBriefcase = (event) => {
         //console.log(info())
         if(opened === false) {
             //console.log('Briefcase opened')
             //console.log(props.value)
+            usersCase(event.target.attributes.id.value)
+            console.log(event.target.attributes.id.value)
             eliminateValue(props.value)
             counter()
             setOpened(true)
+            setNumCases(numCases--)
         }
     }
 
@@ -55,6 +51,7 @@ const Briefcase = (props) => {
                     </Box>
                 )
             }
+            
             
         </Box>
     )
