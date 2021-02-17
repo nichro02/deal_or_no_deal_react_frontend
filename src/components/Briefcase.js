@@ -47,7 +47,7 @@ const Briefcase = (props) => {
                 </Box>
                 ) : (
                     <Box textAlign='center' mb={4}>
-                        <p>Case {props.id + 1}</p>
+                        <p>Open Me!</p>
                     </Box>
                 )
             }

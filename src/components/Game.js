@@ -19,7 +19,7 @@ const Game = () => {
     //toggle board status
     let isOn = true
     //bonus round
-    let bonusRound = false
+    //let bonusRound = false
     //set state for board
     let [activeBoard, setActiveBoard] = useState(true)
     //set state for bank offer
@@ -27,7 +27,7 @@ const Game = () => {
     //set state for player winnings
     let [winnings, SetWinnings] = useState(0)
     //set state for bonus round
-    //let [bonusRound, setBonusRound] = useState(false)
+    let [bonusRound, setBonusRound] = useState(false)
     //set state for score
     let [casesLeftToOpen, setCasesLeftToOpen] = useState(22)
     //set state for user case
@@ -303,23 +303,36 @@ const Game = () => {
     const dealOrNoDeal = (event) => {
         console.log(event.target.innerText)
         const buttonText = event.target.innerText
-        if(buttonText==='Deal' && bonusRound === false){
+        if(buttonText==='Deal'){
             console.log('Send to Bonus Round')
-            bonusRound=true
+            setBonusRound(true)
             playerAccepts()
-        } else if(buttonText==='No Deal' && bonusRound === false){
+        } else if(buttonText==='No Deal'){
             console.log('User rejects offer. Reactivate board and keep playing')
             isOn=true
             setActiveBoard(true)
             
-        } else if(buttonText==='Deal' && bonusRound === true){
+        } /* else if(buttonText==='Deal' && bonusRound === true){
             calculateBonus()
             
             
         } else if(buttonText==='No Deal' && bonusRound === true){
             sendScore()
+        }*/
+    }
+
+    const handleBonusRound = (event) => {
+        const buttonText = event.target.innerText
+        if(buttonText==='Deal'){
+            console.log('Played bonus round')
+            calculateBonus()
+        }
+        else if(buttonText==='No Deal'){
+            console.log('Did not play bonus round')
+            scoreWithoutBonus()
         }
     }
+
     
     //execute if player accepts deal
     const playerAccepts = () => {
@@ -339,32 +352,36 @@ const Game = () => {
         let finalWinnings
         console.log(outcome)
         if(outcome === 'add 10k') {
-            console.log('add 10k')
+            //console.log('add 10k')
             finalWinnings = winnings + 10000
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
             console.log(winnings)
+            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'double money') {
-            console.log('double money')
+            //console.log('double money')
             finalWinnings = winnings * 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
             console.log(winnings)
+            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose half') {
-            console.log('lose half')
+            //console.log('lose half')
             finalWinnings = winnings / 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
             console.log(winnings)
+            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose all') {
-            console.log('lose all')
+            //console.log('lose all')
             finalWinnings = 0
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
             console.log(winnings)
+            console.log(finalWinnings)
             //return winnings
         }
         sendScore()
@@ -378,10 +395,19 @@ const Game = () => {
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
+        console.log('-----', winnings)
         console.log(score)
         recordScore(user_id, score)
 
 
+    }
+
+    const scoreWithoutBonus = () => {
+        const currentUser = getCurrentUser()
+        const user_id = currentUser.data.id
+        let score = playerWinnings
+        console.log('!!!!!', winnings)
+        recordScore(user_id, score)
     }
 
     //start new game
@@ -392,9 +418,13 @@ const Game = () => {
     return(
         
         <div>
-            <div>
+            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
+
+            
+            <GridItem colSpan={2}>
                 Your case: {userCaseToDisplay}
-            </div>
+            </GridItem>
+            </Grid>
             <Box padding='0.5rem' width='20%' textAlign='center'>
                 Cases left to open {turnInfo()}
             </Box>
@@ -406,9 +436,21 @@ const Game = () => {
                 <>
                 {bankOffer}
                 <Box d='flex' alignItems='center' justifyContent='space-around' mb={6}>
-                    <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
-                    <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
-                    <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                    {!bonusRound && (
+                        <>
+                        <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
+                        <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
+                        <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                        </>
+                    )}
+                    {bonusRound && (
+                        <>
+                        <Button label='Deal' onClick={handleBonusRound}>Deal</Button>
+                        <Button label='No Deal' onClick={handleBonusRound}>No Deal</Button>
+                        <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                        </>
+                    )}
+                    
                 </Box>
                 </>
                 
