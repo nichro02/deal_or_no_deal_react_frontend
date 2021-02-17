@@ -25,7 +25,7 @@ const Briefcase = (props) => {
         //console.log(info())
         if(opened === false) {
             //console.log('Briefcase opened')
-            console.log(props.value)
+            console.log(props)
             usersCase(event.target.attributes.id.value)
             //console.log(userCase)
             //console.log(event.target.attributes.id.value)

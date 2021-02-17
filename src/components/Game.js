@@ -367,12 +367,14 @@ const Game = () => {
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </Container>
             ) : (
+                <>
+                {bankOffer}
                 <Box d='flex' alignItems='center' justifyContent='space-around' mb={6}>
                     <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
                     <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </Box>
-            
+                </>
                 
             )
             }
@@ -384,9 +386,11 @@ const Game = () => {
                     </Box>
                 </GridItem>
                 <GridItem colSpan={4}>
-                <Box alignItems='center'>
-            {briefcaseArray.map(briefcase => {return briefcase})}
-            </Box>
+                    <Box 
+                        alignItems='center'
+                    >
+                        {briefcaseArray.map(briefcase => {return briefcase})}
+                    </Box>
                 </GridItem>
             
             

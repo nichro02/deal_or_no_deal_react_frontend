@@ -6,14 +6,12 @@ const BonusBriefcase = (props) => {
 
     const[opened, setOpened] = useState(false)
 
-    const openBriefcase = (event) => {
-
-            setOpened(true)
-        
-    }
+    // const openBriefcase = (event) => 
+    //         setOpened(true)
+    // }
 
     return(
-        <Box key={props.id} onClick={openBriefcase} id={props.id}w="25%" display='inline-block'>
+        <Box key={props.id} /*onClick={openBriefcase}*/ id={props.id}w="25%" display='inline-block'>
             <Box>
                 <img src={'/bonusBriefcase.png'}/>
             </Box>
