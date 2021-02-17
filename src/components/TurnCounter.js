@@ -14,6 +14,7 @@ const TurnCounter = (props) => {
     const setInfo = () => {
         setCasesLeft(props.casesLeft)
         setBoardStatus(props.boardStatus)
+        return casesLeft
     }
 
     const setCase = () => {
@@ -21,7 +22,6 @@ const TurnCounter = (props) => {
 
         />
     }
-    
 
     //console.log(props)
     

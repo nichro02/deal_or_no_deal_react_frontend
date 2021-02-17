@@ -4,15 +4,18 @@ import { useParams } from 'react-router-dom'
 import Briefcase from './Briefcase'
 import BonusBriefcase from './BonusBriefcase'
 import TurnCounter from './TurnCounter'
+import Message from './Message'
 
 import { recordScore } from '../services/game.service'
 
-import { Box, Button, Container } from '@chakra-ui/react'
+import { Box, Button, Container, Grid, GridItem } from '@chakra-ui/react'
 
 import { getCurrentUser } from '../services/auth.service'
 
 
 const Game = () => {
+    
+    
     //count total interaction in game
     let interactions = 22
     //toggle board status
@@ -72,6 +75,9 @@ const Game = () => {
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
+
+    //ordered values
+    const orderedValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
 
     //bonus outcomes
     const bonusOutcomes = ['add 10k', 'double money', 'lose half', 'lose all']
@@ -186,13 +192,21 @@ const Game = () => {
             
         }
     }
-    
+
+    let selectedCase
     const setUserCase = (event) => {
-        if(!userSelectedCase){
-            setUserSelectedCase(event)
-            console.log('`````````',event)
-            console.log('!!!!!!!!',userSelectedCase)
+        if(!selectedCase){
+            selectedCase = event
+            console.log(selectedCase)
         }
+        return(
+            <div>
+                <Box>
+                    {selectedCase}
+                </Box>
+            </div>
+        )
+        
     }
 
     //track eliminted values
@@ -324,13 +338,14 @@ const Game = () => {
     const sendScore = () => {
         //get user id
         //get score
-        
         const currentUser = getCurrentUser()
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
         console.log(score)
         recordScore(user_id, score)
+
+
     }
 
     //start new game
@@ -342,7 +357,7 @@ const Game = () => {
         
         <div>
             <div>
-                Your case:
+                Your case: {selectedCase}
             </div>
             <Box padding='0.5rem' width='20%' textAlign='center'>
                 Cases left to open {turnInfo()}
@@ -357,11 +372,25 @@ const Game = () => {
                     <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </Box>
+            
+                
             )
             }
-            <Box alignItems='center'>
+            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
+                <GridItem colSpan={1}>
+                    <Box alignItems='center'>
+                        <strong>Prize Values</strong>
+                        {orderedValues.sort(function(a, b){return a-b}).map(prize => {return <Box d='flex'>${new Intl.NumberFormat().format(parseInt(prize))}</Box>})}
+                    </Box>
+                </GridItem>
+                <GridItem colSpan={4}>
+                <Box alignItems='center'>
             {briefcaseArray.map(briefcase => {return briefcase})}
             </Box>
+                </GridItem>
+            
+            
+            </Grid>
         </div>
     )
 }

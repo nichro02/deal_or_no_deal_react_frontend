@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import TurnCounter from './TurnCounter'
 
 import { Box } from '@chakra-ui/react'
 
@@ -17,7 +16,7 @@ const Briefcase = (props) => {
     const usersCase = props.userCase
 
     //let numCases = 22
-    console.log(numCases)
+    //console.log(numCases)
     
     //let isUserCase = false
     let userCase = props.userCase
@@ -26,9 +25,10 @@ const Briefcase = (props) => {
         //console.log(info())
         if(opened === false) {
             //console.log('Briefcase opened')
-            //console.log(props.value)
+            console.log(props.value)
             usersCase(event.target.attributes.id.value)
-            console.log(event.target.attributes.id.value)
+            //console.log(userCase)
+            //console.log(event.target.attributes.id.value)
             eliminateValue(props.value)
             counter()
             setOpened(true)
@@ -43,7 +43,7 @@ const Briefcase = (props) => {
             </Box>
             {opened ? (
                 <Box textAlign='center' mb={4}>
-                    <p>{props.value}</p>
+                    <p>${new Intl.NumberFormat().format(parseInt(props.value))}</p>
                 </Box>
                 ) : (
                     <Box textAlign='center' mb={4}>
