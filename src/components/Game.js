@@ -15,7 +15,9 @@ import { getCurrentUser } from '../services/auth.service'
 
 const Game = () => {
     //count total interaction in game
-    let interactions = 22
+    let [interactions, setInteractions] = useState(22)
+    //total sum of briefcases
+    let [totalAmount, setTotalAmount] = useState(0)
     //toggle board status
     let isOn = true
     //bonus round
@@ -29,7 +31,7 @@ const Game = () => {
     //set state for bonus round
     let [bonusRound, setBonusRound] = useState(false)
     //set state for score
-    let [casesLeftToOpen, setCasesLeftToOpen] = useState(22)
+    let [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
     //set state for user case
     //let [userSelectedCase, setUserSelectedCase] = useState(null)
     //set state for eliminated values
@@ -65,6 +67,7 @@ const Game = () => {
             />
             
             newArray.push(bonusCase)
+            console.log(newArray)
         }
         setBriefcaseArray(newArray)
     }, [])
@@ -76,6 +79,10 @@ const Game = () => {
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
+    //
+    
+
+    
 
     //ordered values
     const orderedValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -231,6 +238,7 @@ const Game = () => {
                     />
                 }
                 updatedArray.push(newCase)
+                console.log(updatedArray)
     
             }
             setBriefcaseArray(updatedArray)
@@ -259,7 +267,7 @@ const Game = () => {
 
     //declare when banker will call
     const bankerCalls = () => {
-        interactions --
+        setInteractions(interactions --)
         console.log(interactions)
         if(interactions === 16
             || interactions === 12
@@ -276,6 +284,13 @@ const Game = () => {
             calculateOffer()
             
         }
+    }
+
+    const calcCaseSum = (array) => {
+        array.reduce(function(a,b){
+            console.log(a+b)
+            return a + b
+        })
     }
 
     //compute bankers offer
@@ -299,7 +314,6 @@ const Game = () => {
 
     //declare players decision points
     //process whether player has accepted or rejected deal
-
     const dealOrNoDeal = (event) => {
         console.log(event.target.innerText)
         const buttonText = event.target.innerText
@@ -309,8 +323,9 @@ const Game = () => {
             playerAccepts()
         } else if(buttonText==='No Deal'){
             console.log('User rejects offer. Reactivate board and keep playing')
-            isOn=true
-            setActiveBoard(true)
+            handleLastUnopenedCase()
+            //isOn=true
+            //setActiveBoard(true)
             
         } /* else if(buttonText==='Deal' && bonusRound === true){
             calculateBonus()
@@ -319,6 +334,20 @@ const Game = () => {
         } else if(buttonText==='No Deal' && bonusRound === true){
             sendScore()
         }*/
+    }
+
+    const handleLastUnopenedCase = () => {
+        if(casesLeftToOpen > 0) {
+            isOn=true
+            setActiveBoard(true)
+        } else {
+            //SetWinnings()
+            console.log('End of regulation')
+            let sumPrize = prizeValues.reduce(function(a, b) {
+                return a + b
+            })
+            console.log(sumPrize)
+        }
     }
 
     const handleBonusRound = (event) => {
@@ -423,6 +452,14 @@ const Game = () => {
             
             <GridItem colSpan={2}>
                 Your case: {userCaseToDisplay}
+            </GridItem>
+            <GridItem>
+                <Message
+                    bankOffer = {bankOffer}
+                    interactions = {interactions}
+                    casesLeftToOpen= {casesLeftToOpen}
+                    winnings = {winnings}
+                />
             </GridItem>
             </Grid>
             <Box padding='0.5rem' width='20%' textAlign='center'>
