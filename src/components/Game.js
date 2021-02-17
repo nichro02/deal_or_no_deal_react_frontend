@@ -14,8 +14,6 @@ import { getCurrentUser } from '../services/auth.service'
 
 
 const Game = () => {
-    
-    
     //count total interaction in game
     let interactions = 22
     //toggle board status
@@ -33,11 +31,13 @@ const Game = () => {
     //set state for score
     let [casesLeftToOpen, setCasesLeftToOpen] = useState(22)
     //set state for user case
-    let [userSelectedCase, setUserSelectedCase] = useState(null)
+    //let [userSelectedCase, setUserSelectedCase] = useState(null)
     //set state for eliminated values
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
     let [briefcaseArray, setBriefcaseArray] = useState([])
+
+    let [userCaseToDisplay, setUserCaseToDisplay] = useState('Please select a case')
 
     useEffect(() => {
         let newArray = []
@@ -51,6 +51,7 @@ const Game = () => {
                 turn={turnInfo}
                 numCases={casesLeftToOpen}
                 userCase={setUserCase}
+                briefcaseArray={shuffledCases}
             />
             newArray.push(newCase)
 
@@ -194,10 +195,45 @@ const Game = () => {
     }
 
     let selectedCase
-    const setUserCase = (event) => {
+    const setUserCase = (caseNumber, array) => {
         if(!selectedCase){
-            selectedCase = event
+            selectedCase = caseNumber
             console.log(selectedCase)
+            //const newSelectedCase = array.splice(caseNumber, 1)
+            let updatedArray = []
+            setUserCaseToDisplay(<Briefcase 
+                value = {array[caseNumber]}
+                id = {eval(caseNumber)}
+                key = {caseNumber}
+                counter= {decrementCasesToOpen}
+                eliminateCase={trackEliminatedValues}
+                turn={turnInfo}
+                numCases={casesLeftToOpen}
+                briefcaseArray={[]}
+            />
+            )
+            for(let i = 0; i < array.length; i++) {
+                let newCase = <Briefcase 
+                    value = {array[i]}
+                    id = {i}
+                    key = {i}
+                    counter= {decrementCasesToOpen}
+                    eliminateCase={trackEliminatedValues}
+                    turn={turnInfo}
+                    numCases={casesLeftToOpen}
+                    userCase={setUserCase}
+                />
+                if(i === array.length-1){
+                    newCase= <BonusBriefcase 
+                    value = {shuffledBonusCases[0]}
+                    id = {'bonus'}
+                    key = {'bonus'}
+                    />
+                }
+                updatedArray.push(newCase)
+    
+            }
+            setBriefcaseArray(updatedArray)
         }
         return(
             <div>
@@ -357,7 +393,7 @@ const Game = () => {
         
         <div>
             <div>
-                Your case: {selectedCase}
+                Your case: {userCaseToDisplay}
             </div>
             <Box padding='0.5rem' width='20%' textAlign='center'>
                 Cases left to open {turnInfo()}
