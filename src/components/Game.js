@@ -196,8 +196,6 @@ const Game = () => {
         if(activeBoard){
             setCasesLeftToOpen(--casesLeftToOpen)
             bankerCalls()
-            
-            
         }
     }
 
@@ -205,8 +203,9 @@ const Game = () => {
     const setUserCase = (caseNumber, array) => {
         if(!selectedCase){
             selectedCase = caseNumber
-            console.log(selectedCase)
+            //console.log(selectedCase)
             //const newSelectedCase = array.splice(caseNumber, 1)
+            let valuesArray =[]
             let updatedArray = []
             setUserCaseToDisplay(<Briefcase 
                 value = {array[caseNumber]}
@@ -238,10 +237,13 @@ const Game = () => {
                     />
                 }
                 updatedArray.push(newCase)
-                console.log(updatedArray)
-    
+                valuesArray.push(newCase.props.value)
+                console.log(valuesArray)
             }
+            valuesArray.pop()
             setBriefcaseArray(updatedArray)
+            calcCaseSum(valuesArray)
+            //SetWinnings(totalAmount-caseSum)
         }
         return(
             <div>
@@ -250,7 +252,6 @@ const Game = () => {
                 </Box>
             </div>
         )
-        
     }
 
     //track eliminted values
@@ -260,7 +261,7 @@ const Game = () => {
         if(casesLeftToOpen < 22) {
             values.push(value)
             setEliminatedValues(values)
-            //console.log(eliminatedValues)
+            console.log(eliminatedValues)
         }
         
     }
@@ -268,7 +269,7 @@ const Game = () => {
     //declare when banker will call
     const bankerCalls = () => {
         setInteractions(interactions --)
-        console.log(interactions)
+        //console.log(interactions)
         if(interactions === 16
             || interactions === 12
             || interactions === 8
@@ -287,10 +288,16 @@ const Game = () => {
     }
 
     const calcCaseSum = (array) => {
-        array.reduce(function(a,b){
+        let playersValue = array.reduce(function(a,b){
             console.log(a+b)
             return a + b
         })
+        let sumOfCases = orderedValues.reduce(function(a,b){
+            return a + b
+        })
+        setTotalAmount(sumOfCases-playersValue)
+        console.log(sumOfCases-playersValue)
+
     }
 
     //compute bankers offer
@@ -337,12 +344,15 @@ const Game = () => {
     }
 
     const handleLastUnopenedCase = () => {
-        if(casesLeftToOpen > 0) {
+        if(casesLeftToOpen > 1) {
             isOn=true
             setActiveBoard(true)
         } else {
             //SetWinnings()
             console.log('End of regulation')
+            console.log('USERS CASE VALUE = ',totalAmount)
+            playerWinnings = totalAmount
+            SetWinnings(totalAmount)
             let sumPrize = prizeValues.reduce(function(a, b) {
                 return a + b
             })
@@ -497,7 +507,7 @@ const Game = () => {
                 <GridItem colSpan={1}>
                     <Box alignItems='center'>
                         <strong>Prize Values</strong>
-                        {orderedValues.sort(function(a, b){return a-b}).map(prize => {return <Box d='flex'>${new Intl.NumberFormat().format(parseInt(prize))}</Box>})}
+                        {orderedValues.sort(function(a, b){return a-b}).map(prize => {return <Box d='flex' key={prize}>${new Intl.NumberFormat().format(parseInt(prize))}</Box>})}
                     </Box>
                 </GridItem>
                 <GridItem colSpan={4}>

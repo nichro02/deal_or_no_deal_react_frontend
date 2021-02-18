@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 
 const Message = (props) => {
-    console.log(props)
+    //console.log(props)
     // const { isOpen, onOpen, onClose } = useDisclosure()
 
     if(props.casesLeftToOpen === 15
@@ -36,7 +36,7 @@ const Message = (props) => {
     } else if(props.casesLeftToOpen ===0){
         return(
             <Box>
-                You won!${new Intl.NumberFormat().format(parseInt(props.bankOffer))}. Do you want to play the bonus round?
+                You won!${new Intl.NumberFormat().format(parseInt(props.winnings))}. Do you want to play the bonus round?
             </Box>
         )
     }
