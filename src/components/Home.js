@@ -39,7 +39,7 @@ const Home = () => {
     })
 
     return(
-        <Box>
+        <Box mt={40}>
             <Box p={8} textAlign='center'>
                 <Button colorScheme='purple'>
                     <a href={'/game'}>Start Playing</a>

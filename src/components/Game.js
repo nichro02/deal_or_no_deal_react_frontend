@@ -8,7 +8,7 @@ import Message from './Message'
 
 import { recordScore } from '../services/game.service'
 
-import { Box, Button, Container, Grid, GridItem } from '@chakra-ui/react'
+import { Box, Button, Container, Grid, GridItem, Spacer } from '@chakra-ui/react'
 
 import { getCurrentUser } from '../services/auth.service'
 
@@ -461,9 +461,10 @@ const Game = () => {
             <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={0}>
 
             
-            <GridItem colSpan={2}>
+            <GridItem colSpan={1}>
                 Your case: {userCaseToDisplay}
             </GridItem>
+            <Spacer />
             <GridItem colSpan={3} textAlign='center' p={6}>
                 <Message
                     bankOffer = {bankOffer}
@@ -477,17 +478,17 @@ const Game = () => {
                 />
             </GridItem>
             </Grid>
-            <Box padding='0.5rem' width='20%' textAlign='center'>
+            <Box padding='0.2rem' width='20%' textAlign='center'>
                 Cases left to open {turnInfo()}
             </Box>
             {activeBoard || endOfGame ? (
-                <Container padding='0.5rem' centerContent>
+                <Container mb={2} centerContent>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </Container>
             ) : (
                 <>
                 {bankOffer}
-                <Box d='flex' alignItems='center' justifyContent='space-around' mb={6}>
+                <Box d='flex' alignItems='center' justifyContent='space-around' mb={2}>
                     {!bonusRound && !endOfGame && (
                         <>
                         <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
@@ -510,7 +511,7 @@ const Game = () => {
             }
             </Box>
             <Box mt={96}>
-            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
+            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={8}>
                 <GridItem colSpan={1}>
                     <Box alignItems='center'>
                         <strong>Prize Values</strong>

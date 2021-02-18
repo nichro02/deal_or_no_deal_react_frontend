@@ -43,7 +43,7 @@ const PlayerProfile = () => {
     }, [])
     
 
-    const showScores = playerScores.reverse().map((score, index) => {
+    const showScores = playerScores.reverse().slice(0, 9).map((score, index) => {
          return(
             <Box 
                 key={score.id}
@@ -110,7 +110,8 @@ const PlayerProfile = () => {
     
     return(
         <Box w='100vw'>
-            <Grid templateColumns="repeat(2, 1fr)" gap={8}>
+            <Box mt={40}>
+            <Grid templateColumns="repeat(2, 1fr)" gap={8} >
                 <Box p={8}>
                     <Box>
                         <strong>{playerProfile.username}'s Profile</strong>
@@ -140,7 +141,7 @@ const PlayerProfile = () => {
             <Container centerContent p={8}>
                 {deleteButton()}
             </Container>
-            
+            </Box>
         </Box>
     )
 

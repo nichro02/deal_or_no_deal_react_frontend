@@ -67,7 +67,7 @@ const Navbar = () => {
                 {currentUser ? (
                     
                     
-                    <Grid templateColumns="repeat(5, 1fr)" gap={8} pl={8}>
+                    <Grid templateColumns="repeat(5, 1fr)" gap={8} pl={8}pr={6}>
                         <Box w="70px" h="10">
                             {/* <Link to={profileUrl}>
                                 {currentUser.data.username}
