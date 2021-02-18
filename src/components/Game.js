@@ -457,7 +457,8 @@ const Game = () => {
     return(
         
         <div>
-            <Box position='fixed' bg='white' w='100%' top={32}>
+            <Box position='fixed' bg='white' w='100%' top={32} bg='#b29ce5'
+            color='white'>
             <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={0}>
 
             

@@ -11,9 +11,11 @@ import { ChakraProvider, Flex } from '@chakra-ui/react'
 import logo from './logo.svg';
 import './css/App.css';
 
-function App() {
+
+function App({ Component, pageProps }) {
   return (
     <ChakraProvider>
+      
       <Flex direction='column' align='center' justify='center'>
         <Navbar />
         <Switch>
@@ -23,6 +25,8 @@ function App() {
           <Route exact path='/profile/:id' component={PlayerProfile}/>
         </Switch>
       </Flex>
+      
+      
       
       
       
