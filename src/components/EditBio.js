@@ -31,15 +31,14 @@ const EditBio = (props) => {
     const handleUpdate = (e) => {
         putUpdate(userId, bio).then((res) => {
             console.log(res)
+            
             //turnOffEditing()
-            //history.push(`/profile/${userId}`)
+            history.push(`/profile/${userId}`)
             //profile(userId)
             
         })
         
-        //history.push(`/profile/${userId}`)
-        
-        //setEdit(false)
+        history.push(`/profile/${userId}`)
     }
 
     return (

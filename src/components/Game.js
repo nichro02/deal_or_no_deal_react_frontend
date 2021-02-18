@@ -483,23 +483,23 @@ const Game = () => {
             </Box>
             {activeBoard || endOfGame ? (
                 <Container mb={2} centerContent>
-                    <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                    <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
                 </Container>
             ) : (
                 <>
                 <Box d='flex' alignItems='center' justifyContent='space-around' mb={2}>
                     {!bonusRound && !endOfGame && (
                         <>
-                        <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
-                        <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
-                        <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                        <Button label='Deal' onClick={dealOrNoDeal}colorScheme='green'>Deal</Button>
+                        <Button label='No Deal' onClick={dealOrNoDeal} colorScheme='yellow'>No Deal</Button>
+                        <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
                         </>
                     )}
                     {bonusRound && !endOfGame && (
                         <>
-                        <Button label='Deal' onClick={handleBonusRound}>Deal</Button>
-                        <Button label='No Deal' onClick={handleBonusRound}>No Deal</Button>
-                        <Button label='New Game' onClick={startNewGame}>New Game</Button>
+                        <Button label='Deal' onClick={handleBonusRound} colorScheme='green'>Deal</Button>
+                        <Button label='No Deal' onClick={handleBonusRound} colorScheme='yellow'>No Deal</Button>
+                        <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
                         </>
                     )}
                     
