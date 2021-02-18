@@ -13,7 +13,7 @@ const Message = (props) => {
     if(props.bonusRound===true){
         return(
             <Box>
-                You won ${new Intl.NumberFormat().format(parseInt(props.bankOffer))}! Do you want to play in the bonus round?
+                You won ${new Intl.NumberFormat().format(parseInt(props.bankOffer))} and your case contained${new Intl.NumberFormat().format(parseInt(props.userCaseContents))}! Do you want to play in the bonus round?
             </Box>
         )
     } else if(props.casesLeftToOpen === 15

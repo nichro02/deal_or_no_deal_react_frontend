@@ -12,7 +12,6 @@ import { Box, Button, Container, Grid, GridItem } from '@chakra-ui/react'
 
 import { getCurrentUser } from '../services/auth.service'
 
-
 const Game = () => {
     
     let [endOfGame, setEndOfGame] = useState(false)
@@ -32,8 +31,8 @@ const Game = () => {
     let [winnings, SetWinnings] = useState(0)
     //set state for bonus round
     let [bonusRound, setBonusRound] = useState(false)
-    
-
+    //set state for bonus case contents
+    let [bonusContents, setBonusContents] =useState('')
     //set state for score
     let [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
     //set state for eliminated values
@@ -69,7 +68,8 @@ const Game = () => {
             />
             
             newArray.push(bonusCase)
-            //console.log(newArray)
+            console.log(bonusCase)
+            setBonusContents(bonusCase)
         }
         setBriefcaseArray(newArray)
     }, [])
@@ -139,7 +139,6 @@ const Game = () => {
         const shuffling = shufflePrizes(bonusOutcomes)
 
         shuffledBonusCases = shuffling
-
         return shuffledBonusCases
     }
 
@@ -458,13 +457,14 @@ const Game = () => {
     return(
         
         <div>
+            <Box>
             <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
 
             
             <GridItem colSpan={2}>
                 Your case: {userCaseToDisplay}
             </GridItem>
-            <GridItem>
+            <GridItem colSpan={3} textAlign='center' p={6}>
                 <Message
                     bankOffer = {bankOffer}
                     interactions = {interactions}
@@ -472,6 +472,8 @@ const Game = () => {
                     winnings = {winnings}
                     bonusRound = {bonusRound}
                     endOfGame = {endOfGame}
+                    bonusContents = {bonusContents}
+                    userCaseContents = {totalAmount}
                 />
             </GridItem>
             </Grid>
@@ -506,6 +508,7 @@ const Game = () => {
                 
             )
             }
+            </Box>
             <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
                 <GridItem colSpan={1}>
                     <Box alignItems='center'>
