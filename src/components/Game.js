@@ -457,8 +457,8 @@ const Game = () => {
     return(
         
         <div>
-            <Box>
-            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
+            <Box position='fixed' bg='white' w='100%' top={32}>
+            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={0}>
 
             
             <GridItem colSpan={2}>
@@ -509,6 +509,7 @@ const Game = () => {
             )
             }
             </Box>
+            <Box mt={96}>
             <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8}>
                 <GridItem colSpan={1}>
                     <Box alignItems='center'>
@@ -524,6 +525,7 @@ const Game = () => {
                     </Box>
                 </GridItem>
             </Grid>
+            </Box>
         </div>
     )
 }

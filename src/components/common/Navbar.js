@@ -49,6 +49,9 @@ const Navbar = () => {
         <Box
             bg='#805AD5'
             color='white'
+            position='fixed'
+            top={0}
+            h={32}
         >
             <Box fontSize='4xl' textAlign='center'>
                 <Link to={'/home'}>
