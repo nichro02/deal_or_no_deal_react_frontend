@@ -1,22 +1,22 @@
 
-import { 
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    useDisclosure,
-    Box 
-
-} from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 
 const Message = (props) => {
-    //console.log(props)
-    // const { isOpen, onOpen, onClose } = useDisclosure()
-
-    if(props.casesLeftToOpen === 15
+    console.log(props)
+    if(props.endOfGame === true){
+        return(
+            <Box>
+                Nice game, you won!${new Intl.NumberFormat().format(parseInt(props.winnings))}! Hit the New Game button if you want to continue playing
+            </Box>
+        )
+    }
+    if(props.bonusRound===true){
+        return(
+            <Box>
+                You won ${new Intl.NumberFormat().format(parseInt(props.bankOffer))}! Do you want to play in the bonus round?
+            </Box>
+        )
+    } else if(props.casesLeftToOpen === 15
         || props.casesLeftToOpen === 11
         || props.casesLeftToOpen === 7
         || props.casesLeftToOpen === 5
@@ -36,27 +36,10 @@ const Message = (props) => {
     } else if(props.casesLeftToOpen ===0){
         return(
             <Box>
-                You won!${new Intl.NumberFormat().format(parseInt(props.winnings))}. Do you want to play the bonus round?
+                You won!${new Intl.NumberFormat().format(parseInt(props.winnings))}! Do you want to play the bonus round?
             </Box>
         )
-    }
-
-    
-    
-    else {return null}
-
-        // <Modal isOpen={isOpen} onClose={onClose}>
-        //     <ModalOverlay />
-        //     <ModalContent>
-        //         <ModalHeader></ModalHeader>
-        //         <ModalCloseButton />
-        //         <ModalBody>
-        //             Text of modal
-        //         </ModalBody>
-        //     </ModalContent>
-        // </Modal>
-        
-    
+    } else {return null}
 }
 
 export default Message

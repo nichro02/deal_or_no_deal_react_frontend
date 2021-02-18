@@ -14,6 +14,8 @@ import { getCurrentUser } from '../services/auth.service'
 
 
 const Game = () => {
+    
+    let [endOfGame, setEndOfGame] = useState(false)
     //count total interaction in game
     let [interactions, setInteractions] = useState(22)
     //total sum of briefcases
@@ -30,10 +32,10 @@ const Game = () => {
     let [winnings, SetWinnings] = useState(0)
     //set state for bonus round
     let [bonusRound, setBonusRound] = useState(false)
+    
+
     //set state for score
     let [casesLeftToOpen, setCasesLeftToOpen] = useState(21)
-    //set state for user case
-    //let [userSelectedCase, setUserSelectedCase] = useState(null)
     //set state for eliminated values
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
@@ -67,7 +69,7 @@ const Game = () => {
             />
             
             newArray.push(bonusCase)
-            console.log(newArray)
+            //console.log(newArray)
         }
         setBriefcaseArray(newArray)
     }, [])
@@ -238,7 +240,7 @@ const Game = () => {
                 }
                 updatedArray.push(newCase)
                 valuesArray.push(newCase.props.value)
-                console.log(valuesArray)
+                //console.log(valuesArray)
             }
             valuesArray.pop()
             setBriefcaseArray(updatedArray)
@@ -258,12 +260,11 @@ const Game = () => {
     const trackEliminatedValues = (value) => {
         //console.log(casesLeftToOpen)
         let values = eliminatedValues
-        if(casesLeftToOpen < 22) {
+        if(casesLeftToOpen < 21) {
             values.push(value)
             setEliminatedValues(values)
             console.log(eliminatedValues)
         }
-        
     }
 
     //declare when banker will call
@@ -289,7 +290,6 @@ const Game = () => {
 
     const calcCaseSum = (array) => {
         let playersValue = array.reduce(function(a,b){
-            console.log(a+b)
             return a + b
         })
         let sumOfCases = orderedValues.reduce(function(a,b){
@@ -437,7 +437,7 @@ const Game = () => {
         console.log('-----', winnings)
         console.log(score)
         recordScore(user_id, score)
-
+        setEndOfGame(true)
 
     }
 
@@ -447,6 +447,7 @@ const Game = () => {
         let score = playerWinnings
         console.log('!!!!!', winnings)
         recordScore(user_id, score)
+        setEndOfGame(true)
     }
 
     //start new game
@@ -469,13 +470,15 @@ const Game = () => {
                     interactions = {interactions}
                     casesLeftToOpen= {casesLeftToOpen}
                     winnings = {winnings}
+                    bonusRound = {bonusRound}
+                    endOfGame = {endOfGame}
                 />
             </GridItem>
             </Grid>
             <Box padding='0.5rem' width='20%' textAlign='center'>
                 Cases left to open {turnInfo()}
             </Box>
-            {activeBoard ? (
+            {activeBoard || endOfGame ? (
                 <Container padding='0.5rem' centerContent>
                     <Button label='New Game' onClick={startNewGame}>New Game</Button>
                 </Container>
@@ -483,14 +486,14 @@ const Game = () => {
                 <>
                 {bankOffer}
                 <Box d='flex' alignItems='center' justifyContent='space-around' mb={6}>
-                    {!bonusRound && (
+                    {!bonusRound && !endOfGame && (
                         <>
                         <Button label='Deal' onClick={dealOrNoDeal}>Deal</Button>
                         <Button label='No Deal' onClick={dealOrNoDeal}>No Deal</Button>
                         <Button label='New Game' onClick={startNewGame}>New Game</Button>
                         </>
                     )}
-                    {bonusRound && (
+                    {bonusRound && !endOfGame && (
                         <>
                         <Button label='Deal' onClick={handleBonusRound}>Deal</Button>
                         <Button label='No Deal' onClick={handleBonusRound}>No Deal</Button>
@@ -517,8 +520,6 @@ const Game = () => {
                         {briefcaseArray.map(briefcase => {return briefcase})}
                     </Box>
                 </GridItem>
-            
-            
             </Grid>
         </div>
     )
