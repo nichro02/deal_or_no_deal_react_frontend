@@ -52,7 +52,7 @@ const PlayerProfile = () => {
                 w='30vw'
                 textAlign='center'
             >
-                {score.score}
+                ${new Intl.NumberFormat().format(parseInt(score.score))}
             </Box>
          )
     })

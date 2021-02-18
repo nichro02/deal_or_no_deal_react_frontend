@@ -487,7 +487,6 @@ const Game = () => {
                 </Container>
             ) : (
                 <>
-                {bankOffer}
                 <Box d='flex' alignItems='center' justifyContent='space-around' mb={2}>
                     {!bonusRound && !endOfGame && (
                         <>
