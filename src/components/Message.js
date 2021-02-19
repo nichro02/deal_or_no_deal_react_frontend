@@ -9,8 +9,7 @@ const Message = (props) => {
                 Nice game, you won<strong>${new Intl.NumberFormat().format(parseInt(props.winnings))}</strong>! The bonus case contained <strong>{props.bonusContents.props.value}</strong>. Hit the New Game button if you want to continue playing
             </Box>
         )
-    }
-    if(props.bonusRound===true){
+    } else if(props.bonusRound===true && props.casesLeftToOpen > 0){
         return(
             <Box>
                 You won <strong>${new Intl.NumberFormat().format(parseInt(props.bankOffer))}</strong> and your case contained <strong>${new Intl.NumberFormat().format(parseInt(props.userCaseContents))}</strong>! Do you want to play in the bonus round?
@@ -36,7 +35,7 @@ const Message = (props) => {
     } else if(props.casesLeftToOpen ===0){
         return(
             <Box>
-                You won <strong>${new Intl.NumberFormat().format(parseInt(props.winnings))}</strong>! Do you want to play the bonus round?
+                You won <strong>${new Intl.NumberFormat().format(parseInt(props.userCaseContents))}</strong>! Do you want to play the bonus round?
             </Box>
         )
     } else {return null}

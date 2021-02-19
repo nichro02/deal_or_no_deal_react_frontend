@@ -21,8 +21,6 @@ const Game = () => {
     let [totalAmount, setTotalAmount] = useState(0)
     //toggle board status
     let isOn = true
-    //bonus round
-    //let bonusRound = false
     //set state for board
     let [activeBoard, setActiveBoard] = useState(true)
     //set state for bank offer
@@ -77,14 +75,10 @@ const Game = () => {
     useEffect(() => {
         console.log('BOARD STATUS', activeBoard)
     },[activeBoard])
-    
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
     //
-    
-
-    
 
     //ordered values
     const orderedValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -269,8 +263,10 @@ const Game = () => {
     //declare when banker will call
     const bankerCalls = () => {
         setInteractions(interactions --)
-        //console.log(interactions)
-        if(interactions === 16
+        //if cases to open === 0, invoke handleLastUnopenedCase() --> basically need to set player winnings equal to what's in their briefcase
+        if(casesLeftToOpen === 0 || interactions < 1) {
+            handleLastUnopenedCase()
+        } else if(interactions === 16
             || interactions === 12
             || interactions === 8
             || interactions === 6
@@ -312,9 +308,13 @@ const Game = () => {
         })
 
         //calculate offer
-        offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
-        console.log(offerValue)
-        setBankOffer(offerValue)
+        if(casesLeftToOpen > 0){
+            console.log(casesLeftToOpen)
+            offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
+            console.log(offerValue)
+            setBankOffer(offerValue)
+        }
+        
         return bankOffer
     }
 
@@ -343,19 +343,21 @@ const Game = () => {
     }
 
     const handleLastUnopenedCase = () => {
-        if(casesLeftToOpen > 1) {
-            isOn=true
-            setActiveBoard(true)
-        } else {
-            //SetWinnings()
+         if(casesLeftToOpen ===0) {
+            setActiveBoard(false)
             console.log('End of regulation')
             console.log('USERS CASE VALUE = ',totalAmount)
+            
             playerWinnings = totalAmount
-            SetWinnings(totalAmount)
-            let sumPrize = prizeValues.reduce(function(a, b) {
+            let pickedValue = eliminatedValues.reduce(function(a, b) {
                 return a + b
             })
-            console.log(sumPrize)
+            console.log(pickedValue)
+            SetWinnings(totalAmount)
+            setBonusRound(true)
+        } else {
+            isOn=true
+            setActiveBoard(true)
         }
     }
 
@@ -390,7 +392,6 @@ const Game = () => {
         let finalWinnings
         console.log(outcome)
         if(outcome === 'add 10k') {
-            //console.log('add 10k')
             finalWinnings = winnings + 10000
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -398,7 +399,6 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'double money') {
-            //console.log('double money')
             finalWinnings = winnings * 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -406,7 +406,6 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose half') {
-            //console.log('lose half')
             finalWinnings = winnings / 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -414,7 +413,6 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose all') {
-            //console.log('lose all')
             finalWinnings = 0
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
