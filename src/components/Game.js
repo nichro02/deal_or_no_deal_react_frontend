@@ -441,8 +441,16 @@ const Game = () => {
     const scoreWithoutBonus = () => {
         const currentUser = getCurrentUser()
         const user_id = currentUser.data.id
-        let score = playerWinnings
+        let score
+        if(casesLeftToOpen === 0) {
+            score = totalAmount
+        } else {
+            score = playerWinnings
+        }
+        //let score = playerWinnings
         console.log('!!!!!', winnings)
+        console.log('22222',totalAmount)
+        SetWinnings(score)
         recordScore(user_id, score)
         setEndOfGame(true)
     }

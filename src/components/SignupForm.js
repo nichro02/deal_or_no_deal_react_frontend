@@ -102,7 +102,7 @@ const SignUpForm = () => {
     return(
         
         <form action='submit' onSubmit={handleSignup}>
-            <Stack spacing ={4}>
+            <Stack spacing ={4} top={32}>
                 <FormControl isRequired>
                     <InputGroup>
                         <InputLeftElement children={<Icon name='info' />} />

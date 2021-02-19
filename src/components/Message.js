@@ -6,7 +6,7 @@ const Message = (props) => {
     if(props.endOfGame === true){
         return(
             <Box>
-                Nice game, you won<strong>${new Intl.NumberFormat().format(parseInt(props.winnings))}</strong>! The bonus case contained <strong>{props.bonusContents.props.value}</strong>. Hit the New Game button if you want to continue playing
+                Nice game, you won<strong> ${new Intl.NumberFormat().format(parseInt(props.winnings))}</strong>! The bonus case contained <strong>{props.bonusContents.props.value}</strong>. Hit the New Game button if you want to continue playing
             </Box>
         )
     } else if(props.bonusRound===true && props.casesLeftToOpen > 0){

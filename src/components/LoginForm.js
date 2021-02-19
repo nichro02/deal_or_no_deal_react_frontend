@@ -64,7 +64,7 @@ const LoginForm = (props) => {
     return(
         
             <form action='submit' onSubmit={handleLogin}>
-                <Stack spacing ={4}>
+                <Stack spacing ={4} top={32}>
 
                     <FormControl isRequired>
                         <InputGroup>

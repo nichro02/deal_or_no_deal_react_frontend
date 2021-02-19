@@ -16,6 +16,8 @@ const RegistrationForm = () => {
             boxShadow='sm' 
             rounded='lg'
             bg={colorMode === 'light' ? 'gray.200' : 'gray.600'}
+            mt={60}
+            
         >
             <Image src='security.png' w='80px' mx='auto' my={6}/>
             <Tabs variant='enclosed-colored' m={4} isFitted>
