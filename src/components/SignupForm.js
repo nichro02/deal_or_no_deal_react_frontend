@@ -164,9 +164,8 @@ const SignUpForm = () => {
                 </Button>
 
                 <FormHelperText textAlign='center'>
-                    We will never share your email!
+                    Sign up for free!
                     <br />
-                    🤞
                 </FormHelperText>
                 
                 {message && (

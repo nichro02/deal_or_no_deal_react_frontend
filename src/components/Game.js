@@ -428,31 +428,44 @@ const Game = () => {
         //get user id
         //get score
         const currentUser = getCurrentUser()
+        if(currentUser){
+
+        
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
         console.log('-----', winnings)
         console.log(score)
         recordScore(user_id, score)
+        }
         setEndOfGame(true)
 
     }
 
     const scoreWithoutBonus = () => {
         const currentUser = getCurrentUser()
+        if(currentUser){
+        
         const user_id = currentUser.data.id
         let score
+        
         if(casesLeftToOpen === 0) {
             score = totalAmount
+            SetWinnings(totalAmount)
+            recordScore(user_id, totalAmount)
         } else {
             score = playerWinnings
+            SetWinnings(winnings)
+            recordScore(user_id, winnings)
         }
         //let score = playerWinnings
         console.log('!!!!!', winnings)
         console.log('22222',totalAmount)
-        SetWinnings(score)
-        recordScore(user_id, score)
+        //SetWinnings(score)
+        //recordScore(user_id, score)
+        }
         setEndOfGame(true)
+        
     }
 
     //start new game

@@ -108,9 +108,8 @@ const LoginForm = (props) => {
                     </Button>
 
                     <FormHelperText textAlign='center'>
-                        Login to experience the awesomeness
+                        Login to join the party
                         <br />
-                        💪
                     </FormHelperText>
                     {message && (
                         <div>
