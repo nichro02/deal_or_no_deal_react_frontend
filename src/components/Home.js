@@ -28,7 +28,9 @@ const Home = () => {
                 justifyContent='space-around'
             >
                 <Box>
-                    {score.score}
+                    <Box d='flex'>
+                        ${new Intl.NumberFormat().format(parseInt(score.score))}
+                    </Box>
                 </Box>
                 <Box>
                     <a href = {`/profile/${score.user_id.id}`}>{score.user_id.username}</a>

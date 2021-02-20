@@ -1,70 +1,19 @@
-# Getting Started with Create React App
+# Project Overview
+This is the frontend for my Deal or No Deal React app. Deal or No Deal was the first project I completed during my GA bootcamp. For my final project at GA, I wanted to try rebuilding it as a full-stack app to display the growth of my skills as a developer. As you will read in the problems/challenges section, I found it challenging to translate a game built almost entirely on DOM manipulation into a working full-stack app.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# User Stories
 
-## Available Scripts
+# Wireframes
 
-In the project directory, you can run:
 
-### `npm start`
+# Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Problems/Challenges
+* The biggest hurdle I had to overcome in the development of this app was just getting the board set up. The suitcases re-rendered every time state was updated, but they need to stay in the same location for the game. Thank you, Billie, for helping implement a fix for this issue.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* One unsolved problem that exists with the game in its current state is that when a player selects their suitcase to start the game, another suitcase automatically opens (unless the player selects that last suitcase before the bonus case). I'm working to update this logic.
 
-### `npm test`
+* Another byproduct of the solution to freeze the cases in place is that I'm currently unable to "turn the board off." That is, a player can just keep selecting suitcase if they don't see the banker has called. A short term fix I'm working on is hiding the board when the board status is inactive, but I think it would be great to figure out a way to implement modals to enhance the player experience.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Link to Deployed App
+Link to come
