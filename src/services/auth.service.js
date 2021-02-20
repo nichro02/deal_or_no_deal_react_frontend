@@ -20,10 +20,9 @@ export const register = (username, email, password) => {
 export const login = (username, password) => {
     return axios
     .post(API_URL+'login', {
-        //withCredentials: true,
         username,
         password
-    })
+    }, {withCredentials: true})
     .then((response) => {
         if(response.data){
             setItem('user', response.data)
