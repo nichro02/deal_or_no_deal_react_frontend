@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 
 import { get_scores } from '../services/game.service'
 
-import { Box, Button, Container,Link } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 
 const Home = () => {
     let [scores, setScores] = useState([])
@@ -10,7 +10,6 @@ const Home = () => {
     useEffect(() => {
         get_scores().then((response)=>{
             setScores(response.data.data)
-            console.log(response)
         }).catch(error => {
             console.log(error)
         })
@@ -40,12 +39,18 @@ const Home = () => {
 
     return(
         <Box mt={40}>
-            <Box p={8} textAlign='center'>
+            <Box
+                p={8}
+                textAlign='center'
+            >
                 <Button colorScheme='purple'>
                     <a href={'/game'}>Start Playing</a>
                 </Button>
             </Box>
-            <Box p={8} textAlign='center'>
+            <Box
+                p={8}
+                textAlign='center'
+            >
                 <strong>High Scores</strong>
                 {highScores}
             </Box>

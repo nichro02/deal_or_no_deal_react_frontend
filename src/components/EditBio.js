@@ -8,17 +8,13 @@ import { putUpdate, profile } from '../services/profile.service'
 import { Button } from '@chakra-ui/react'
 
 const EditBio = (props) => {
-    console.log(props)
     const currentUser = getCurrentUser()
     const userId = currentUser.data.id
-    //console.log(currentUser)
     const [bio, setBio] = useState('')
-    //const [edit, setEdit] = useState(true)
     const turnOffEditing = props.editing
     
     useEffect(() => {
         setBio(props.bio)
-        //setEdit(props.edit)
     }, [])
 
     let history = useHistory()
@@ -30,11 +26,7 @@ const EditBio = (props) => {
 
     const handleUpdate = (e) => {
         putUpdate(userId, bio).then((res) => {
-            console.log(res)
-            //turnOffEditing()
-            //history.push(`/profile/${userId}#`)
             profile(userId)
-            //window.location.reload()
         })
     }
 
@@ -43,7 +35,11 @@ const EditBio = (props) => {
             {(currentUser) && (
                 <form onSubmit={handleUpdate}>
                     <label>
-                        <input type='text' value={bio} onChange={onChangePost} />
+                        <input
+                            type='text'
+                            value={bio}
+                            onChange={onChangePost}
+                        />
                     </label>
                     <Button 
                         type='submit' value='Submit'
