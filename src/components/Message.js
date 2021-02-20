@@ -1,8 +1,6 @@
-
 import { Box } from '@chakra-ui/react'
 
 const Message = (props) => {
-    console.log(props)
     if(props.endOfGame === true){
         return(
             <Box>

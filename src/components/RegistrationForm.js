@@ -3,11 +3,8 @@ import { Box, useColorMode, Tabs, TabList, Tab, TabPanels, TabPanel, Image } fro
 import SignupForm from './SignupForm'
 import LoginForm from './LoginForm'
 
-//Variant changes the way tabs behave
-//mx= margin for x axis
-
 const RegistrationForm = () => {
-    //use colorMode to override Chakra defaults for light and dark mode
+    //give user option for dark mode
     const {colorMode} = useColorMode()
     return(
         <Box 
@@ -17,10 +14,18 @@ const RegistrationForm = () => {
             rounded='lg'
             bg={colorMode === 'light' ? 'gray.200' : 'gray.600'}
             mt={60}
-            
         >
-            <Image src='security.png' w='80px' mx='auto' my={6}/>
-            <Tabs variant='enclosed-colored' m={4} isFitted>
+            <Image
+                src='security.png'
+                w='80px'
+                mx='auto'
+                my={6}
+            />
+            <Tabs
+                variant='enclosed-colored'
+                m={4}
+                isFitted
+            >
                 <TabList>
                     <Tab>Sign Up</Tab>
                     <Tab>Login</Tab>

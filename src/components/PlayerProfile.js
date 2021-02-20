@@ -3,13 +3,10 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import EditBio from './EditBio'
 
-import { profile, deleteUser, putUpdate } from '../services/profile.service'
+import { profile, deleteUser } from '../services/profile.service'
 import { getCurrentUser, logout } from '../services/auth.service'
-import {removeItem} from '../utilities/localStorage.utilities'
 
 import { resMessage } from '../utilities/message.utilities'
-
-
 
 import { Box, Button, Container, Image, Grid } from '@chakra-ui/react'
 
@@ -28,12 +25,10 @@ const PlayerProfile = () => {
     const currentUser = getCurrentUser()
     //const userId = currentUser.data.id
     const { id } = useParams()
-
     
     useEffect(() => {
         
         profile(id).then((response)=> {
-            //console.log(response.data.data)
             setPlayerProfile(response.data.data.player)
             setPlayerScores(response.data.data.games)
     
@@ -79,8 +74,6 @@ const PlayerProfile = () => {
     }
 
     const deleteButton = () => {
-        // console.log(userId)
-        // console.log(id)
         if(currentUser.data.id == id){
             return (
                 <Button 
@@ -111,14 +104,17 @@ const PlayerProfile = () => {
     return(
         <Box w='100vw'>
             <Box mt={40}>
-            <Grid templateColumns="repeat(2, 1fr)" gap={8} >
+            <Grid
+                templateColumns="repeat(2, 1fr)"
+                gap={8}
+            >
                 <Box p={8}>
                     <Box>
                         <strong>{playerProfile.username}'s Profile</strong>
                     <Image 
-                    src='//ssl.gstatic.com/accounts/ui/avatar_2x.png'
-                    alt='profile image'
-                    rounded='lg'
+                        src='//ssl.gstatic.com/accounts/ui/avatar_2x.png'
+                        alt='profile image'
+                        rounded='lg'
                     />
                     </Box>
                     <Box>
@@ -127,7 +123,10 @@ const PlayerProfile = () => {
                         <Box>{updateButton()}</Box></>)
                         }
                         {edit && (
-                        <EditBio bio={playerProfile.bio} editing={resetEditing}/>
+                        <EditBio
+                            bio={playerProfile.bio}
+                            editing={resetEditing}
+                        />
                         )}
                     </Box>
                 </Box>
@@ -144,7 +143,5 @@ const PlayerProfile = () => {
             </Box>
         </Box>
     )
-
-
 }
 export default PlayerProfile
