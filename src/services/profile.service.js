@@ -3,7 +3,8 @@ import axios from 'axios'
 import {setItem, getItem, removeItem} from '../utilities/localStorage.utilities'
 
 
-const API_URL="http://localhost:8000/api/v1/players/"
+//const API_URL="http://localhost:8000/api/v1/players/"
+const API_URL= process.env.REACT_APP_BACKEND_URL+'/api/v1/players/'
 
 export const profile = (id) => {
     return axios.get(API_URL+id)
