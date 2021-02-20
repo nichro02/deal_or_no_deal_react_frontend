@@ -12,7 +12,7 @@ import logo from './logo.svg';
 import './css/App.css';
 
 
-function App({ Component, pageProps }) {
+function App() {
   return (
     <ChakraProvider>
       
@@ -25,31 +25,6 @@ function App({ Component, pageProps }) {
           <Route exact path='/profile/:id' component={PlayerProfile}/>
         </Switch>
       </Flex>
-      
-      
-      
-      
-      
-      {/* 
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      
-      
-    </div>
-    */}
     </ChakraProvider>
   );
 }

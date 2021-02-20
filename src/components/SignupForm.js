@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState} from 'react'
 import { useHistory } from 'react-router-dom'
 import { isEmail } from 'validator'
 
@@ -116,7 +116,6 @@ const SignUpForm = () => {
                     </InputGroup>
                 </FormControl>
 
-
                 <Divider 
                     borderColor='gray.300'
                 />
@@ -133,7 +132,6 @@ const SignUpForm = () => {
                         />
                     </InputGroup>
                 </FormControl>
-
 
                 <Divider 
                     borderColor='gray.300'
