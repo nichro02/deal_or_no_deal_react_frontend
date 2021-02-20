@@ -20,7 +20,6 @@ const EditBio = (props) => {
     let history = useHistory()
 
     const onChangePost = (e) => {
-        console.log(bio)
         setBio(e.target.value)
     }
 

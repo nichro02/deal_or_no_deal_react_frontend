@@ -19,7 +19,6 @@ const PlayerProfile = () => {
     const [playerScores, setPlayerScores] = useState([])
     
     const [edit, setEdit] = useState(false)
-    console.log(edit)
     let history = useHistory()
 
     const currentUser = getCurrentUser()
@@ -89,7 +88,6 @@ const PlayerProfile = () => {
     const handleDelete = () => {
         logout()
         deleteUser(id).then((response) => {
-            console.log(response)
             if(response.data.status.code === 200){
                 //send user to homepage with successful login
                 history.push('/home')

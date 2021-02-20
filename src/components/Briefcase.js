@@ -14,7 +14,6 @@ const Briefcase = (props) => {
     const usersCase = props.userCase
 
     const openBriefcase = (event) => {
-        console.log(props)
         if(opened === false) {
             usersCase(event.target.attributes.id.value, props.briefcaseArray)
             eliminateValue(props.value)

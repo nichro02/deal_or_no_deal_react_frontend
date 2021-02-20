@@ -63,14 +63,12 @@ const SignUpForm = () => {
     //track what username is entered
     const onChangeUsername = (e) => {
         const username = e.target.value
-        console.log(username)
         setUsername(username)
     }
 
     //track what password is entered
     const onChangePassword = (e) => {
         const password = e.target.value
-        console.log(password)
         setPassword(password)
     }
 
@@ -85,7 +83,6 @@ const SignUpForm = () => {
         e.preventDefault()
         register(username, email, password)
         .then((response) => {
-            console.log(response)
             if(response.data.status.code === 201){
                 //send user to homepage with successful login
                 login(username, password, {withCredentials: true})

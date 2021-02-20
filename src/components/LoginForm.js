@@ -31,14 +31,12 @@ const LoginForm = (props) => {
     //track what username is entered
     const onChangeUsername = (e) => {
         const username = e.target.value
-        console.log(username)
         setUsername(username)
     }
 
     //track what password is entered
     const onChangePassword = (e) => {
         const password = e.target.value
-        console.log(password)
         setPassword(password)
     }
 
@@ -47,7 +45,6 @@ const LoginForm = (props) => {
         e.preventDefault()
         login(username, password)
         .then((response) => {
-            console.log(response)
             if(response.status.code === 200){
                 //send user to homepage with successful login
                 history.push('/home')

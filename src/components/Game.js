@@ -12,7 +12,6 @@ import { Box, Button, Container, Grid, GridItem, Spacer } from '@chakra-ui/react
 import { getCurrentUser } from '../services/auth.service'
 
 const Game = () => {
-    
     let [endOfGame, setEndOfGame] = useState(false)
     //count total interaction in game
     let [interactions, setInteractions] = useState(22)
@@ -36,7 +35,7 @@ const Game = () => {
     let [eliminatedValues, setEliminatedValues] = useState([])
     //set state for array of briefcases to display on gameboard
     let [briefcaseArray, setBriefcaseArray] = useState([])
-
+    //set state to display when user selects case
     let [userCaseToDisplay, setUserCaseToDisplay] = useState('Please select a case')
 
     useEffect(() => {
@@ -65,23 +64,14 @@ const Game = () => {
             />
             
             newArray.push(bonusCase)
-            console.log(bonusCase)
             setBonusContents(bonusCase)
         }
         setBriefcaseArray(newArray)
     }, [])
-    
-    useEffect(() => {
-        console.log('BOARD STATUS', activeBoard)
-    },[activeBoard])
-    
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
     //
-    
-
-    
 
     //ordered values
     const orderedValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -94,8 +84,6 @@ const Game = () => {
     let offerValue = 0
     // player's winnings
     let playerWinnings = 0
-    // holding array to return briefcases
-    //let briefcaseArray = []
     //shuffle briefcases
     let shuffledCases = []
     //bonus briefcase
@@ -106,7 +94,6 @@ const Game = () => {
         return <TurnCounter 
             casesLeft={casesLeftToOpen}
             boardStatus={activeBoard}
-
         />
     }
 
@@ -123,10 +110,7 @@ const Game = () => {
 
     const shuffleCases = () => {
         const shuffling = shufflePrizes(prizeValues)
-
         shuffledCases = shuffling
-        //console.log(shuffledCases)
-
         return shuffledCases
     }
 
@@ -154,15 +138,8 @@ const Game = () => {
                 eliminateCase={trackEliminatedValues}
             />
             newArray.push(newCase)
-            //setBriefcaseArray([...briefcaseArray, newCase])
-            //console.log(shuffledCases)
-            //console.log(newCase)
-            //console.log(briefcaseArray)
         }
-        //return briefcaseArray
-        
         setBriefcaseArray([...briefcaseArray, ...newArray])
-        console.log(briefcaseArray)
     }
 
     //create bonus case
@@ -176,21 +153,13 @@ const Game = () => {
                 id = {'bonus'}
                 key = {'bonus'}
             />
-            //briefcaseArray.push(bonusCase)
-            bonusCaseHolder.push(bonusCase)
-            
-            console.log(bonusCase)
+            bonusCaseHolder.push(bonusCase)   
         }
         setBriefcaseArray([...briefcaseArray, ...bonusCaseHolder])
-        //console.log(briefcaseArray)
-        //return briefcaseArray
     }
 
     //decrement cases to open
     const decrementCasesToOpen = () => {
-        //let response = await activeBoard
-        //console.log('----->',activeBoard)
-        //console.log('-_-___-', response)
         if(activeBoard){
             setCasesLeftToOpen(--casesLeftToOpen)
             bankerCalls()
@@ -201,7 +170,6 @@ const Game = () => {
     const setUserCase = (caseNumber, array) => {
         if(!selectedCase){
             selectedCase = caseNumber
-            //console.log(selectedCase)
             //const newSelectedCase = array.splice(caseNumber, 1)
             let valuesArray =[]
             let updatedArray = []
@@ -236,7 +204,6 @@ const Game = () => {
                 }
                 updatedArray.push(newCase)
                 valuesArray.push(newCase.props.value)
-                //console.log(valuesArray)
             }
             valuesArray.pop()
             setBriefcaseArray(updatedArray)
@@ -254,19 +221,16 @@ const Game = () => {
 
     //track eliminted values
     const trackEliminatedValues = (value) => {
-        //console.log(casesLeftToOpen)
         let values = eliminatedValues
         if(casesLeftToOpen < 21) {
             values.push(value)
             setEliminatedValues(values)
-            console.log(eliminatedValues)
         }
     }
 
     //declare when banker will call
     const bankerCalls = () => {
         setInteractions(interactions --)
-        //console.log(interactions)
         if(interactions === 16
             || interactions === 12
             || interactions === 8
@@ -277,8 +241,6 @@ const Game = () => {
         ) {
             isOn = false
             setActiveBoard(false)
-            console.log('BANKER CALLS',casesLeftToOpen,'TO OPEN' )
-            console.log(isOn)
             calculateOffer()
             
         }
@@ -292,8 +254,6 @@ const Game = () => {
             return a + b
         })
         setTotalAmount(sumOfCases-playersValue)
-        console.log(sumOfCases-playersValue)
-
     }
 
     //compute bankers offer
@@ -310,7 +270,6 @@ const Game = () => {
 
         //calculate offer
         offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
-        console.log(offerValue)
         setBankOffer(offerValue)
         return bankOffer
     }
@@ -318,25 +277,13 @@ const Game = () => {
     //declare players decision points
     //process whether player has accepted or rejected deal
     const dealOrNoDeal = (event) => {
-        console.log(event.target.innerText)
         const buttonText = event.target.innerText
         if(buttonText==='Deal'){
-            console.log('Send to Bonus Round')
             setBonusRound(true)
             playerAccepts()
         } else if(buttonText==='No Deal'){
-            console.log('User rejects offer. Reactivate board and keep playing')
             handleLastUnopenedCase()
-            //isOn=true
-            //setActiveBoard(true)
-            
-        } /* else if(buttonText==='Deal' && bonusRound === true){
-            calculateBonus()
-            
-            
-        } else if(buttonText==='No Deal' && bonusRound === true){
-            sendScore()
-        }*/
+        }
     }
 
     const handleLastUnopenedCase = () => {
@@ -344,26 +291,21 @@ const Game = () => {
             isOn=true
             setActiveBoard(true)
         } else {
-            //SetWinnings()
-            console.log('End of regulation')
-            console.log('USERS CASE VALUE = ',totalAmount)
+            //set winnings
             playerWinnings = totalAmount
             SetWinnings(totalAmount)
             let sumPrize = prizeValues.reduce(function(a, b) {
                 return a + b
             })
-            console.log(sumPrize)
         }
     }
 
     const handleBonusRound = (event) => {
         const buttonText = event.target.innerText
         if(buttonText==='Deal'){
-            console.log('Played bonus round')
             calculateBonus()
         }
         else if(buttonText==='No Deal'){
-            console.log('Did not play bonus round')
             scoreWithoutBonus()
         }
     }
@@ -371,12 +313,8 @@ const Game = () => {
     
     //execute if player accepts deal
     const playerAccepts = () => {
-        console.log(bankOffer)
         playerWinnings = bankOffer
-        console.log(playerWinnings)
         SetWinnings(playerWinnings)
-        
-        console.log('Player won', playerWinnings)
         return winnings
     }
 
@@ -385,38 +323,25 @@ const Game = () => {
         const bonusCase = briefcaseArray[briefcaseArray.length-1]
         const outcome = bonusCase.props.value
         let finalWinnings
-        console.log(outcome)
         if(outcome === 'add 10k') {
-            //console.log('add 10k')
             finalWinnings = winnings + 10000
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
-            console.log(winnings)
-            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'double money') {
-            //console.log('double money')
             finalWinnings = winnings * 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
-            console.log(winnings)
-            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose half') {
-            //console.log('lose half')
             finalWinnings = winnings / 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
-            console.log(winnings)
-            console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose all') {
-            //console.log('lose all')
             finalWinnings = 0
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
-            console.log(winnings)
-            console.log(finalWinnings)
             //return winnings
         }
         sendScore()
@@ -430,8 +355,6 @@ const Game = () => {
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
-        console.log('-----', winnings)
-        console.log(score)
         recordScore(user_id, score)
         setEndOfGame(true)
 
@@ -441,7 +364,6 @@ const Game = () => {
         const currentUser = getCurrentUser()
         const user_id = currentUser.data.id
         let score = playerWinnings
-        console.log('!!!!!', winnings)
         recordScore(user_id, score)
         setEndOfGame(true)
     }
