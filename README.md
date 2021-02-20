@@ -25,7 +25,7 @@ This is the frontend for my Deal or No Deal React app. Deal or No Deal was the f
 |Reply to comments|
 
 # Screenshots and Wireframes
-![Screenshot of game page] (public/game_screen.png)
+![Screenshot of game page] (./public/game_screen.png)
 
 
 # Tech Stack
