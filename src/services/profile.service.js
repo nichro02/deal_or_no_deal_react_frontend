@@ -12,7 +12,7 @@ export const profile = (id) => {
 export const putUpdate = (id, bio) => {
     return axios.put(API_URL+id,{
         bio
-    }).then((res) => {
+    }, {withCredentials:true}).then((res) => {
         console.log(res)
     })
 }

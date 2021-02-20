@@ -502,7 +502,7 @@ const Game = () => {
                     mt={8}
                 >
                     <GridItem colSpan={1}>
-                        <Box alignItems='center'>
+                        <Box alignItems='center' p={8}>
                         <strong>Prize Values</strong>
                         {orderedValues.sort(function(a, b){return a-b}).map(prize => {return <Box d='flex' key={prize}>${new Intl.NumberFormat().format(parseInt(prize))}</Box>})}
                         </Box>
@@ -512,6 +512,7 @@ const Game = () => {
                             {briefcaseArray.map(briefcase => {return briefcase})}
                         </Box>
                     </GridItem>
+                    
                 </Grid>
             </Box>
         </div>

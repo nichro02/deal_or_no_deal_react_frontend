@@ -62,6 +62,7 @@ const Navbar = () => {
                         gap={8} 
                         pl={8}
                         pr={6}
+                        w='100vw'
                     >
                         <Box
                             w="70px"
