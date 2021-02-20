@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
 
 import Briefcase from './Briefcase'
 import BonusBriefcase from './BonusBriefcase'
@@ -75,10 +74,14 @@ const Game = () => {
     useEffect(() => {
         console.log('BOARD STATUS', activeBoard)
     },[activeBoard])
+    
 
     //briefcase values
     const prizeValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
     //
+    
+
+    
 
     //ordered values
     const orderedValues = [1, 5, 10, 25,  50, 100, 250, 500, 750, 1000, 3000, 5000, 10000, 15000, 25000, 50000, 75000, 100000, 250000, 500000, 750000, 1000000]
@@ -263,10 +266,8 @@ const Game = () => {
     //declare when banker will call
     const bankerCalls = () => {
         setInteractions(interactions --)
-        //if cases to open === 0, invoke handleLastUnopenedCase() --> basically need to set player winnings equal to what's in their briefcase
-        if(casesLeftToOpen === 0 || interactions < 1) {
-            handleLastUnopenedCase()
-        } else if(interactions === 16
+        //console.log(interactions)
+        if(interactions === 16
             || interactions === 12
             || interactions === 8
             || interactions === 6
@@ -308,13 +309,9 @@ const Game = () => {
         })
 
         //calculate offer
-        if(casesLeftToOpen > 0){
-            console.log(casesLeftToOpen)
-            offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
-            console.log(offerValue)
-            setBankOffer(offerValue)
-        }
-        
+        offerValue = Math.round((maxPrize - eliminatedAmount) / casesLeftToOpen)
+        console.log(offerValue)
+        setBankOffer(offerValue)
         return bankOffer
     }
 
@@ -343,21 +340,19 @@ const Game = () => {
     }
 
     const handleLastUnopenedCase = () => {
-         if(casesLeftToOpen ===0) {
-            setActiveBoard(false)
-            console.log('End of regulation')
-            console.log('USERS CASE VALUE = ',totalAmount)
-            
-            playerWinnings = totalAmount
-            let pickedValue = eliminatedValues.reduce(function(a, b) {
-                return a + b
-            })
-            console.log(pickedValue)
-            SetWinnings(totalAmount)
-            setBonusRound(true)
-        } else {
+        if(casesLeftToOpen > 1) {
             isOn=true
             setActiveBoard(true)
+        } else {
+            //SetWinnings()
+            console.log('End of regulation')
+            console.log('USERS CASE VALUE = ',totalAmount)
+            playerWinnings = totalAmount
+            SetWinnings(totalAmount)
+            let sumPrize = prizeValues.reduce(function(a, b) {
+                return a + b
+            })
+            console.log(sumPrize)
         }
     }
 
@@ -392,6 +387,7 @@ const Game = () => {
         let finalWinnings
         console.log(outcome)
         if(outcome === 'add 10k') {
+            //console.log('add 10k')
             finalWinnings = winnings + 10000
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -399,6 +395,7 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'double money') {
+            //console.log('double money')
             finalWinnings = winnings * 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -406,6 +403,7 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose half') {
+            //console.log('lose half')
             finalWinnings = winnings / 2
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -413,6 +411,7 @@ const Game = () => {
             console.log(finalWinnings)
             //return winnings
         } else if(outcome === 'lose all') {
+            //console.log('lose all')
             finalWinnings = 0
             playerWinnings = finalWinnings
             SetWinnings(finalWinnings)
@@ -428,44 +427,23 @@ const Game = () => {
         //get user id
         //get score
         const currentUser = getCurrentUser()
-        if(currentUser){
-
-        
         const id = currentUser.data.id
         let user_id = id
         let score = playerWinnings
         console.log('-----', winnings)
         console.log(score)
         recordScore(user_id, score)
-        }
         setEndOfGame(true)
 
     }
 
     const scoreWithoutBonus = () => {
         const currentUser = getCurrentUser()
-        if(currentUser){
-        
         const user_id = currentUser.data.id
-        let score
-        
-        if(casesLeftToOpen === 0) {
-            score = totalAmount
-            SetWinnings(totalAmount)
-            recordScore(user_id, totalAmount)
-        } else {
-            score = playerWinnings
-            SetWinnings(winnings)
-            recordScore(user_id, winnings)
-        }
-        //let score = playerWinnings
+        let score = playerWinnings
         console.log('!!!!!', winnings)
-        console.log('22222',totalAmount)
-        //SetWinnings(score)
-        //recordScore(user_id, score)
-        }
+        recordScore(user_id, score)
         setEndOfGame(true)
-        
     }
 
     //start new game
@@ -476,75 +454,143 @@ const Game = () => {
     return(
         
         <div>
-            <Box position='fixed' bg='white' w='100%' top={32} bg='#b29ce5'
-            color='white'>
-            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={0}>
-
-            
-            <GridItem colSpan={1}>
-                Your case: {userCaseToDisplay}
-            </GridItem>
-            <Spacer />
-            <GridItem colSpan={3} textAlign='center' p={6}>
-                <Message
-                    bankOffer = {bankOffer}
-                    interactions = {interactions}
-                    casesLeftToOpen= {casesLeftToOpen}
-                    winnings = {winnings}
-                    bonusRound = {bonusRound}
-                    endOfGame = {endOfGame}
-                    bonusContents = {bonusContents}
-                    userCaseContents = {totalAmount}
-                />
-            </GridItem>
-            </Grid>
-            <Box padding='0.2rem' width='20%' textAlign='center'>
-                Cases left to open {turnInfo()}
-            </Box>
-            {activeBoard || endOfGame ? (
-                <Container mb={2} centerContent>
-                    <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
-                </Container>
-            ) : (
-                <>
-                <Box d='flex' alignItems='center' justifyContent='space-around' mb={2}>
-                    {!bonusRound && !endOfGame && (
-                        <>
-                        <Button label='Deal' onClick={dealOrNoDeal}colorScheme='green'>Deal</Button>
-                        <Button label='No Deal' onClick={dealOrNoDeal} colorScheme='yellow'>No Deal</Button>
-                        <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
-                        </>
-                    )}
-                    {bonusRound && !endOfGame && (
-                        <>
-                        <Button label='Deal' onClick={handleBonusRound} colorScheme='green'>Deal</Button>
-                        <Button label='No Deal' onClick={handleBonusRound} colorScheme='yellow'>No Deal</Button>
-                        <Button label='New Game' onClick={startNewGame} colorScheme='red'>New Game</Button>
-                        </>
-                    )}
-                    
+            <Box
+                position='fixed'
+                w='100%'
+                top={32}
+                bg='#b29ce5'
+                color='white'
+            >
+                <Grid
+                    templateColumns="repeat(5, 1fr)"
+                    gap={8}
+                    p={8}
+                    mt={0}
+                >
+                    <GridItem colSpan={1}>
+                        Your case: {userCaseToDisplay}
+                    </GridItem>
+                    <Spacer />
+                    <GridItem
+                        colSpan={3}textAlign='center'
+                        p={6}
+                    >
+                        <Message
+                        bankOffer = {bankOffer}
+                        interactions = {interactions}
+                        casesLeftToOpen= {casesLeftToOpen}
+                        winnings = {winnings}
+                        bonusRound = {bonusRound}
+                        endOfGame = {endOfGame}
+                        bonusContents = {bonusContents}
+                        userCaseContents = {totalAmount}
+                        />
+                    </GridItem>
+                </Grid>
+                <Box
+                    padding='0.2rem'
+                    width='20%'
+                    textAlign='center'
+                >
+                    Cases left to open {turnInfo()}
                 </Box>
-                </>
+                {activeBoard || endOfGame ? (
+                    <Container
+                        mb={2}
+                        centerContent
+                    >
+                        <Button
+                            label='New Game'
+                            onClick={startNewGame}
+                            colorScheme='red'
+                        >
+                            New Game
+                        </Button>
+                    </Container>
+                    ) : (
+                        <>
+                            <Box
+                                d='flex'
+                                alignItems='center'
+                                justifyContent='space-around'
+                                mb={2}
+                            >
+                                {!bonusRound && !endOfGame && (
+                                    <>
+                                        <Button
+                                            label='Deal'
+                                            onClick={dealOrNoDeal}
+                                            colorScheme='green'
+                                        >
+                                            Deal
+                                        </Button>
+                                        <Button
+                                            label='No Deal'
+                                            onClick={dealOrNoDeal}
+                                            colorScheme='yellow'
+                                        >
+                                            No Deal
+                                        </Button>
+                                        <Button
+                                            label='New Game'
+                                            onClick={startNewGame}
+                                            colorScheme='red'
+                                        >
+                                            New Game
+                                        </Button>
+                                    </>
+                                )}
+                                {bonusRound && !endOfGame && (
+                                    <>
+                                        <Button
+                                            label='Deal'
+                                            onClick={handleBonusRound}
+                                            colorScheme='green'
+                                        >
+                                            Deal
+                                        </Button>
+                                        <Button
+                                            label='No Deal'
+                                            onClick={handleBonusRound}
+                                            colorScheme='yellow'
+                                        >
+                                            No Deal
+                                        </Button>
+                                        <Button
+                                            label='New Game'
+                                            onClick={startNewGame}
+                                            colorScheme='red'
+                                        >
+                                            New Game
+                                        </Button>
+                                    </>
+                                )}
+                    
+                            </Box>
+                        </>
                 
-            )
-            }
+                    )
+                }
             </Box>
             <Box mt={96}>
-            <Grid templateColumns="repeat(5, 1fr)" gap={8} p={8} mt={8}>
-                <GridItem colSpan={1}>
-                    <Box alignItems='center'>
+                <Grid
+                    templateColumns="repeat(5, 1fr)"
+                    gap={8}
+                    p={8}
+                    mt={8}
+                >
+                    <GridItem colSpan={1}>
+                        <Box alignItems='center'>
                         <strong>Prize Values</strong>
                         {orderedValues.sort(function(a, b){return a-b}).map(prize => {return <Box d='flex' key={prize}>${new Intl.NumberFormat().format(parseInt(prize))}</Box>})}
-                    </Box>
-                </GridItem>
-                <GridItem colSpan={4}>
-                    <Box 
-                        alignItems='center'
-                    >
-                        {briefcaseArray.map(briefcase => {return briefcase})}
-                    </Box>
-                </GridItem>
-            </Grid>
+                        </Box>
+                    </GridItem>
+                    <GridItem colSpan={4}>
+                        <Box alignItems='center'>
+                            {briefcaseArray.map(briefcase => {return briefcase})}
+                        </Box>
+                    </GridItem>
+                </Grid>
             </Box>
         </div>
     )
