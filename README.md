@@ -25,7 +25,15 @@ This is the frontend for my Deal or No Deal React app. Deal or No Deal was the f
 |Reply to comments|
 
 # Screenshots and Wireframes
-![Screenshot of game page] (./public/game_screen.png)
+![Screenshot of login page] (images/login_screen.png)
+
+![Screenshot of home page] (images/home_screen.png)
+
+![Screenshot of game page] (images/game_screen.png)
+
+![Screenshot of player profile page] (images/profile_screen)
+
+My wireframes can be found [here](https://whimsical.com/deal-or-no-deal-react-5KPJujAkdQRgy4vdQsXy8C@2Ux7TurymMgc1t5ATL5b)
 
 
 # Tech Stack
